@@ -200,7 +200,7 @@ public class NorthwindDaoImpl implements NorthwindDao {
 
 	@Override
 	public List<Shipper> getListOfShipper() {
-		return this.mJdbcTemplate.query("select * from customers",
+		return this.mJdbcTemplate.query("select * from shippers",
 				new ShipperMapper());
 	}
 
