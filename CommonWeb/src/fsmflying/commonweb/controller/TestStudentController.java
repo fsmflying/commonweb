@@ -35,22 +35,22 @@ public class TestStudentController {
 	}
 	
 	@RequestMapping("/getMax")
-	public String getMaxJson(Model model)
+	public String getMaxStudent(Model model)
 	{
 		int maxStudentId = testStudentService.getMaxStudentId();
 		Student student = testStudentService.getStudent(maxStudentId);
 		System.out.println(student);
-		model.addAttribute("list",student);
+		model.addAttribute("message","添加了一个Student对象"+student);
 		return "student";
 	}
 	
 	@RequestMapping("/getMin")
-	public String getMinJson(Model model)
+	public String getMinStudent(Model model)
 	{
 		int maxStudentId = testStudentService.getMinStudentId();
 		Student student = testStudentService.getStudent(maxStudentId);
 		System.out.println(student);
-		model.addAttribute("list",student);
+		model.addAttribute("message","添加了一个Student对象"+student);
 		return "student";
 	}
 	
