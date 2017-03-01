@@ -41,7 +41,7 @@ public class TestStudentController {
 		Student student = testStudentService.getStudent(maxStudentId);
 		System.out.println(student);
 		model.addAttribute("list",student);
-		return "userJsonList";
+		return "student";
 	}
 	
 	@RequestMapping("/getMin")
@@ -51,7 +51,7 @@ public class TestStudentController {
 		Student student = testStudentService.getStudent(maxStudentId);
 		System.out.println(student);
 		model.addAttribute("list",student);
-		return "userJsonList";
+		return "student";
 	}
 	
 }
