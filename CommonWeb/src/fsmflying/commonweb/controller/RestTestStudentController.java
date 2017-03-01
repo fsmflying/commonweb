@@ -31,8 +31,8 @@ public class RestTestStudentController {
 	NorthwindService northwindService;
 
 	@RequestMapping("/user")
-	// @JsonView(User.WithoutPasswordView.class)
-	@JsonView(User.WithPasswordView.class)
+	 @JsonView(User.WithoutPasswordView.class)
+//	@JsonView(User.WithPasswordView.class)
 	// @JsonView
 	public User getUser() {
 		return new User("eric", "7!jd#h23");
