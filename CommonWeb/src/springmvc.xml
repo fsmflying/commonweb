@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd       
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd  ">
+	<!-- 配置自动扫描包 -->
+	<context:component-scan base-package="fsmflying"></context:component-scan>
+	<mvc:annotation-driven />
+	
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<bean id="northwindDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${northwind.jdbc.driverClassName}" />
+		<property name="url" value="${northwind.jdbc.url}" />
+		<property name="username" value="${northwind.jdbc.username}" />
+		<property name="password" value="${northwind.jdbc.password}" />
+	</bean>
+	
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 配置视图解析器：如何把handler方法返回值解析为实际的视图 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" 
+		> <property name="order" value="10"/> </bean> -->
+
+	<!-- XMl及JSON视图解析器配置 -->
+	<!-- <bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" 
+		p:renderedAttributes="userList" /> <bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"> 
+		<property name="renderedAttributes"> <set> <value>list</value> </set> </property> 
+		</bean> -->
+
+
+	<bean id="northwindService" class="fsmflying.northwind.service.impl.NorthwindServiceImpl"></bean>
+	<bean id="northwindDao" class="fsmflying.northwind.dao.impl.NorthwindDaoImpl">
+		<property name="dataSource" ref="northwindDataSource"></property>
+	</bean>
+	
+	<bean id="testStudentService" class="fsmflying.sys.service.impl.TestStudentServiceImpl"></bean>
+	<bean id="testStudentDAO" class="fsmflying.sys.dao.impl.TestStudentDAOImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+</beans>
