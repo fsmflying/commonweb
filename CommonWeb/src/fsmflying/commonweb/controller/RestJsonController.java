@@ -21,7 +21,7 @@ import fsmflying.sys.service.TestStudentService;
 
 @RestController
 @RequestMapping("/testjson")
-public class RestTestStudentController {
+public class RestJsonController {
 
 	// @Autowired
 	@Autowired
