@@ -61,11 +61,20 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
+	<bean id="sequenceService" class="fsmflying.sys.service.impl.SequenceServiceImpl"></bean>
+	<bean id="sequenceDao" class="fsmflying.sys.dao.impl.SequenceDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 	
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-
+	<!-- 多部分文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	     <property name="maxUploadSize" value="104857600" />
+	     <property name="maxInMemorySize" value="4096" />
+	     <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
 </beans>
