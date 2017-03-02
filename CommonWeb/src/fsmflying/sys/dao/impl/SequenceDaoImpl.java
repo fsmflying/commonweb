@@ -8,12 +8,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-
-import fsmflying.sys.dao.SequenceDao;
-import fsmflying.sys.domain.Student;
+import com.fsmflying.sys.dao.SequenceDao;
 
 public class SequenceDaoImpl implements SequenceDao {
 
@@ -115,7 +112,6 @@ public class SequenceDaoImpl implements SequenceDao {
 
 	@Override
 	public int getNextIdByDefault() {
-		// TODO Auto-generated method stub
 		return getNextId("default");
 	}
 

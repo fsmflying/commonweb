@@ -1,5 +1,6 @@
 package fsmflying.sys.domain;
 
+
 public class Student {
 	private int mId;
 	private String mName;

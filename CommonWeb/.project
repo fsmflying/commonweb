@@ -3,6 +3,7 @@
 	<name>CommonWeb</name>
 	<comment></comment>
 	<projects>
+		<project>Fsmflying</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
