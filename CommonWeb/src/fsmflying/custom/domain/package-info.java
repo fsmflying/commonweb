@@ -5,4 +5,4 @@
  * @author FangMing
  *
  */
-package fsmflying.sys.domain;
+package fsmflying.custom.domain;

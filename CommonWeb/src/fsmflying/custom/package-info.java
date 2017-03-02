@@ -5,4 +5,4 @@
  * @author FangMing
  *
  */
-package fsmflying.sys;
+package fsmflying.custom;

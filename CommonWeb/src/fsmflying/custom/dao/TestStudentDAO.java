@@ -1,10 +1,10 @@
-package fsmflying.sys.dao;
+package fsmflying.custom.dao;
 
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import fsmflying.sys.domain.Student;
+import fsmflying.custom.domain.Student;
 
 public interface TestStudentDAO {
 	

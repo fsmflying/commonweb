@@ -5,4 +5,4 @@
  * @author FangMing
  *
  */
-package fsmflying.sys.dao;
+package fsmflying.custom.dao;

@@ -1,4 +1,4 @@
-package fsmflying.sys.domain;
+package fsmflying.custom.domain;
 
 
 public class Student {

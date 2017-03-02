@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fsmflying.sys.dm.helper.LoginResult;
+//import com.fsmflying.sys.dm.helper.User;
 
 import fsmflying.commonweb.JsonHttpResult;
+import fsmflying.custom.domain.Student;
+import fsmflying.custom.domain.User;
+import fsmflying.custom.service.TestStudentService;
 import fsmflying.northwind.service.NorthwindService;
-import fsmflying.sys.domain.LoginResult;
-import fsmflying.sys.domain.Student;
-import fsmflying.sys.domain.User;
-import fsmflying.sys.service.TestStudentService;
 
 @RestController
 @RequestMapping("/testjson")
@@ -31,8 +32,8 @@ public class RestJsonController {
 	NorthwindService northwindService;
 
 	@RequestMapping("/user")
-	 @JsonView(User.WithoutPasswordView.class)
-//	@JsonView(User.WithPasswordView.class)
+	@JsonView(User.WithoutPasswordView.class)
+	// @JsonView(User.WithPasswordView.class)
 	// @JsonView
 	public User getUser() {
 		return new User("eric", "7!jd#h23");
@@ -94,15 +95,13 @@ public class RestJsonController {
 	@RequestMapping("/getResult/one/{objectType}/{id}")
 	public JsonHttpResult getResult(
 			@PathVariable("objectType") String objectType,
-			@PathVariable(value="id") String id) {
+			@PathVariable(value = "id") String id) {
 		JsonHttpResult httpResult = new JsonHttpResult();
 		if ("student".equals(objectType))
-			httpResult.getData().put(
-					"list",
+			httpResult.getData().put("list",
 					testStudentService.getStudent(Integer.parseInt(id)));
 		else if ("customer".equals(objectType))
-			httpResult.getData().put("list",
-					northwindService.getCustomer(id));
+			httpResult.getData().put("list", northwindService.getCustomer(id));
 		else if ("category".equals(objectType))
 			httpResult.getData().put("list",
 					northwindService.getCategory(Integer.parseInt(id)));
@@ -118,12 +117,11 @@ public class RestJsonController {
 		httpResult.setMessage("success");
 		return httpResult;
 	}
-	
-	
+
 	@RequestMapping("/login")
-	public LoginResult login(@RequestParam("username") String username,@RequestParam("password") String password)
-	{
-		Map<String,String> accounts = new HashMap<String,String>();
+	public LoginResult login(@RequestParam("username") String username,
+			@RequestParam("password") String password) {
+		Map<String, String> accounts = new HashMap<String, String>();
 		accounts.put("fangming", "123456");
 		accounts.put("wangliang", "123456");
 		accounts.put("wangxiaojuan", "123456");
@@ -135,22 +133,18 @@ public class RestJsonController {
 		accounts.put("wangwu", "123456");
 		accounts.put("方明", "123456");
 		LoginResult result = new LoginResult();
-		if(accounts.containsKey(username)&&accounts.get(username).equals(password))
-		{
+		if (accounts.containsKey(username)
+				&& accounts.get(username).equals(password)) {
+			com.fsmflying.sys.dm.helper.User user = new com.fsmflying.sys.dm.helper.User(
+					username);
 			result.success();
 			result.setMessage("登录成功！");
-			result.setUser(new User(username));
-		}
-		else
-		{
-			result.failure();
+			result.setUser(user);
+		} else {
 			result.setMessage("登录失败!");
 			result.setUser(null);
 		}
 		return result;
 	}
-	
-	
-	
 
 }

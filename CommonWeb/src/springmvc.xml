@@ -75,7 +75,7 @@
 	</bean>
 	
 	<bean id="sequenceService" class="com.fsmflying.sys.service.impl.SequenceServiceImpl"></bean>
-	<bean id="sequenceDao" class="fsmflying.sys.dao.impl.SequenceDaoImpl">
+	<bean id="sequenceDao" class="com.fsmflying.spring.dao.impl.SequenceDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	

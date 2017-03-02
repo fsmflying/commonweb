@@ -1,4 +1,4 @@
-package fsmflying.sys.dao.impl;
+package fsmflying.custom.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import fsmflying.sys.dao.TestStudentDAO;
-import fsmflying.sys.domain.Student;
+import fsmflying.custom.dao.TestStudentDAO;
+import fsmflying.custom.domain.Student;
 
 public class TestStudentDAOImpl implements TestStudentDAO {
 

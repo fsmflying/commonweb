@@ -1,12 +1,12 @@
-package fsmflying.sys.service.impl;
+package fsmflying.custom.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import fsmflying.sys.dao.TestStudentDAO;
-import fsmflying.sys.domain.Student;
-import fsmflying.sys.service.TestStudentService;
+import fsmflying.custom.dao.TestStudentDAO;
+import fsmflying.custom.domain.Student;
+import fsmflying.custom.service.TestStudentService;
 
 public class TestStudentServiceImpl implements TestStudentService{
 

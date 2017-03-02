@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fsmflying.sys.domain.Student;
-import fsmflying.sys.service.TestStudentService;
+import fsmflying.custom.domain.Student;
+import fsmflying.custom.service.TestStudentService;
 
 @Controller
 @RequestMapping("/student")

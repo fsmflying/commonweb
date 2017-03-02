@@ -1,20 +1,18 @@
-package fsmflying.sys.domain;
+package fsmflying.custom.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 public class User {
 	public interface WithoutPasswordView {};
-    public interface WithPasswordView extends WithoutPasswordView {};
+	public interface WithPasswordView extends WithoutPasswordView {};
 
-    private int userid;
-    private String username;
-    private String password;
+	private int userid;
+	private String username;
+	private String password;
 
-    public User() {
-    }
+	public User() {}
 
-    public User(String username) {
+	public User(String username) {
 		super();
 		this.username = username;
 	}
@@ -25,7 +23,7 @@ public class User {
 		this.password = password;
 	}
 
-    public int getUserid() {
+	public int getUserid() {
 		return userid;
 	}
 
@@ -42,12 +40,12 @@ public class User {
 	}
 
 	@JsonView(WithoutPasswordView.class)
-    public String getUsername() {
-        return this.username;
-    }
+	public String getUsername() {
+		return this.username;
+	}
 
-    @JsonView(WithPasswordView.class)
-    public String getPassword() {
-        return this.password;
-    }
+	@JsonView(WithPasswordView.class)
+	public String getPassword() {
+		return this.password;
+	}
 }

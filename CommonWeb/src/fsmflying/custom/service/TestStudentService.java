@@ -1,8 +1,8 @@
-package fsmflying.sys.service;
+package fsmflying.custom.service;
 
 import java.util.List;
 
-import fsmflying.sys.domain.Student;
+import fsmflying.custom.domain.Student;
 
 public interface TestStudentService {
 	boolean addStudent(Student model);
