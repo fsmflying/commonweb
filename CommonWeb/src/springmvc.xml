@@ -69,8 +69,8 @@
 		<property name="dataSource" ref="northwindDataSource"></property>
 	</bean>
 	
-	<bean id="testStudentService" class="fsmflying.sys.service.impl.TestStudentServiceImpl"></bean>
-	<bean id="testStudentDAO" class="fsmflying.sys.dao.impl.TestStudentDAOImpl">
+	<bean id="testStudentService" class="fsmflying.custom.service.impl.TestStudentServiceImpl"></bean>
+	<bean id="testStudentDAO" class="fsmflying.custom.dao.impl.TestStudentDAOImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
