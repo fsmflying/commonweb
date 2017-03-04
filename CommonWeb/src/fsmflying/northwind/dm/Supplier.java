@@ -1,90 +1,120 @@
+
 package fsmflying.northwind.dm;
 
-public class Supplier {
-	private int supplierId;
-	private String companyName;
-	private String contactName;
-	private String contactTitle;
-	private String address;
-	private String city;
-	private String region;
-	private String postalCode;
-	private String country;
-	private String phone;
-	private String fax;
-	private String homePage;
+
+public class Supplier{
 	
-	public int getSupplierId() {
-		return supplierId;
-	}
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	public String getContactName() {
-		return contactName;
-	}
-	public void setContactName(String contactName) {
-		this.contactName = contactName;
-	}
-	public String getContactTitle() {
-		return contactTitle;
-	}
-	public void setContactTitle(String contactTitle) {
-		this.contactTitle = contactTitle;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getRegion() {
-		return region;
-	}
-	public void setRegion(String region) {
-		this.region = region;
-	}
-	public String getPostalCode() {
-		return postalCode;
-	}
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getFax() {
-		return fax;
-	}
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-	public String getHomePage() {
-		return homePage;
-	}
-	public void setHomePage(String homePage) {
-		this.homePage = homePage;
-	}
 	
+
+
+	private int mSupplierID;
+	private String mCompanyName;
+	private String mContactName;
+	private String mContactTitle;
+	private String mAddress;
+	private String mCity;
+	private String mRegion;
+	private String mPostalCode;
+	private String mCountry;
+	private String mPhone;
+	private String mFax;
+	private String mHomePage;
+
+	public int getSupplierID(){
+		 return this.mSupplierID;
+	}
+
+	public void setSupplierID(int supplierID){
+		 this.mSupplierID = supplierID ;
+	}
+
+	public String getCompanyName(){
+		 return this.mCompanyName;
+	}
+
+	public void setCompanyName(String companyName){
+		 this.mCompanyName = companyName ;
+	}
+
+	public String getContactName(){
+		 return this.mContactName;
+	}
+
+	public void setContactName(String contactName){
+		 this.mContactName = contactName ;
+	}
+
+	public String getContactTitle(){
+		 return this.mContactTitle;
+	}
+
+	public void setContactTitle(String contactTitle){
+		 this.mContactTitle = contactTitle ;
+	}
+
+	public String getAddress(){
+		 return this.mAddress;
+	}
+
+	public void setAddress(String address){
+		 this.mAddress = address ;
+	}
+
+	public String getCity(){
+		 return this.mCity;
+	}
+
+	public void setCity(String city){
+		 this.mCity = city ;
+	}
+
+	public String getRegion(){
+		 return this.mRegion;
+	}
+
+	public void setRegion(String region){
+		 this.mRegion = region ;
+	}
+
+	public String getPostalCode(){
+		 return this.mPostalCode;
+	}
+
+	public void setPostalCode(String postalCode){
+		 this.mPostalCode = postalCode ;
+	}
+
+	public String getCountry(){
+		 return this.mCountry;
+	}
+
+	public void setCountry(String country){
+		 this.mCountry = country ;
+	}
+
+	public String getPhone(){
+		 return this.mPhone;
+	}
+
+	public void setPhone(String phone){
+		 this.mPhone = phone ;
+	}
+
+	public String getFax(){
+		 return this.mFax;
+	}
+
+	public void setFax(String fax){
+		 this.mFax = fax ;
+	}
+
+	public String getHomePage(){
+		 return this.mHomePage;
+	}
+
+	public void setHomePage(String homePage){
+		 this.mHomePage = homePage ;
+	}
+
+
 }

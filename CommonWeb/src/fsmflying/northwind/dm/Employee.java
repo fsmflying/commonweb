@@ -1,133 +1,176 @@
+
 package fsmflying.northwind.dm;
 
 import java.util.Date;
 
-public class Employee {
-	private int employeeId;
-	private String lastName;
-	private String firstName;
-	private String title;
-	private String titleOfCourtesy;
-	private Date birthDate;
-	private Date hireDate;
-	private String address;
-	private String city;
-	private String region;
-	private String postalCode;
-	private String country;
-	private String homePhone;
-	private String extension;
-	private byte[] photo;
-	private String notes;
-	private int reportsTo;
-	private String photoPath;
 
-	public int getEmployeeId() {
-		return employeeId;
+public class Employee{
+	
+	
+
+
+	private int mEmployeeID;
+	private String mLastName;
+	private String mFirstName;
+	private String mTitle;
+	private String mTitleOfCourtesy;
+	private Date mBirthDate;
+	private Date mHireDate;
+	private String mAddress;
+	private String mCity;
+	private String mRegion;
+	private String mPostalCode;
+	private String mCountry;
+	private String mHomePhone;
+	private String mExtension;
+	private byte[] mPhoto;
+	private String mNotes;
+	private int mReportsTo;
+	private String mPhotoPath;
+
+	public int getEmployeeID(){
+		 return this.mEmployeeID;
 	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+
+	public void setEmployeeID(int employeeID){
+		 this.mEmployeeID = employeeID ;
 	}
-	public String getLastName() {
-		return lastName;
+
+	public String getLastName(){
+		 return this.mLastName;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+	public void setLastName(String lastName){
+		 this.mLastName = lastName ;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public String getFirstName(){
+		 return this.mFirstName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setFirstName(String firstName){
+		 this.mFirstName = firstName ;
 	}
-	public String getTitle() {
-		return title;
+
+	public String getTitle(){
+		 return this.mTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setTitle(String title){
+		 this.mTitle = title ;
 	}
-	public String getTitleOfCourtesy() {
-		return titleOfCourtesy;
+
+	public String getTitleOfCourtesy(){
+		 return this.mTitleOfCourtesy;
 	}
-	public void setTitleOfCourtesy(String titleOfCourtesy) {
-		this.titleOfCourtesy = titleOfCourtesy;
+
+	public void setTitleOfCourtesy(String titleOfCourtesy){
+		 this.mTitleOfCourtesy = titleOfCourtesy ;
 	}
-	public Date getBirthDate() {
-		return birthDate;
+
+	public Date getBirthDate(){
+		 return this.mBirthDate;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+
+	public void setBirthDate(Date birthDate){
+		 this.mBirthDate = birthDate ;
 	}
-	public Date getHireDate() {
-		return hireDate;
+
+	public Date getHireDate(){
+		 return this.mHireDate;
 	}
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
+
+	public void setHireDate(Date hireDate){
+		 this.mHireDate = hireDate ;
 	}
-	public String getAddress() {
-		return address;
+
+	public String getAddress(){
+		 return this.mAddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+
+	public void setAddress(String address){
+		 this.mAddress = address ;
 	}
-	public String getCity() {
-		return city;
+
+	public String getCity(){
+		 return this.mCity;
 	}
-	public void setCity(String city) {
-		this.city = city;
+
+	public void setCity(String city){
+		 this.mCity = city ;
 	}
-	public String getRegion() {
-		return region;
+
+	public String getRegion(){
+		 return this.mRegion;
 	}
-	public void setRegion(String region) {
-		this.region = region;
+
+	public void setRegion(String region){
+		 this.mRegion = region ;
 	}
-	public String getPostalCode() {
-		return postalCode;
+
+	public String getPostalCode(){
+		 return this.mPostalCode;
 	}
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+
+	public void setPostalCode(String postalCode){
+		 this.mPostalCode = postalCode ;
 	}
-	public String getCountry() {
-		return country;
+
+	public String getCountry(){
+		 return this.mCountry;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+
+	public void setCountry(String country){
+		 this.mCountry = country ;
 	}
-	public String getHomePhone() {
-		return homePhone;
+
+	public String getHomePhone(){
+		 return this.mHomePhone;
 	}
-	public void setHomePhone(String homePhone) {
-		this.homePhone = homePhone;
+
+	public void setHomePhone(String homePhone){
+		 this.mHomePhone = homePhone ;
 	}
-	public String getExtension() {
-		return extension;
+
+	public String getExtension(){
+		 return this.mExtension;
 	}
-	public void setExtension(String extension) {
-		this.extension = extension;
+
+	public void setExtension(String extension){
+		 this.mExtension = extension ;
 	}
-	public byte[] getPhoto() {
-		return photo;
+
+	public byte[] getPhoto(){
+		 return this.mPhoto;
 	}
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
+
+	public void setPhoto(byte[] photo){
+		 this.mPhoto = photo ;
 	}
-	public String getNotes() {
-		return notes;
+
+	public String getNotes(){
+		 return this.mNotes;
 	}
-	public void setNotes(String notes) {
-		this.notes = notes;
+
+	public void setNotes(String notes){
+		 this.mNotes = notes ;
 	}
-	public int getReportsTo() {
-		return reportsTo;
+
+	public int getReportsTo(){
+		 return this.mReportsTo;
 	}
-	public void setReportsTo(int reportsTo) {
-		this.reportsTo = reportsTo;
+
+	public void setReportsTo(int reportsTo){
+		 this.mReportsTo = reportsTo ;
 	}
-	public String getPhotoPath() {
-		return photoPath;
+
+	public String getPhotoPath(){
+		 return this.mPhotoPath;
 	}
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
+
+	public void setPhotoPath(String photoPath){
+		 this.mPhotoPath = photoPath ;
 	}
+
+
 }

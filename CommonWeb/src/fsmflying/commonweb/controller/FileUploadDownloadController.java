@@ -1,15 +1,12 @@
 package fsmflying.commonweb.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +18,20 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fsmflying.spring.Spring4WebHelper;
+import com.fsmflying.sys.dm.SysFile;
+
 @Controller
 @RequestMapping("/file")
 public class FileUploadDownloadController {
 
 	@RequestMapping(value = "/download/{id}")
-	public String downloadFile01(@PathVariable("id") int id) {
-		return "download";
+	public String downloadFile01(@PathVariable("id") int id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		Spring4WebHelper.downloadFile(1, request, response);
+		return null;
 	}
 
 	@RequestMapping(value = "/download", params = { "id" })
@@ -38,33 +42,14 @@ public class FileUploadDownloadController {
 
 	@RequestMapping(value = "/upload01")
 	public String uploadFile01(@RequestParam("file") CommonsMultipartFile file,
-			Model model) throws IOException {
+			Model model, HttpServletRequest request) throws IOException {
 		// 用来检测程序运行时间
 		long startTime = System.currentTimeMillis();
-		System.out.println("fileName：" + file.getOriginalFilename());
-
-		try {
-			// 获取输出流
-			OutputStream os = new FileOutputStream("E:/" + new Date().getTime()
-					+ file.getOriginalFilename());
-			// 获取输入流 CommonsMultipartFile 中可以直接得到文件的流
-			InputStream is = file.getInputStream();
-			int temp;
-			// 一个一个字节的读取并写入
-			while ((temp = is.read()) != (-1)) {
-				os.write(temp);
-			}
-			os.flush();
-			os.close();
-			is.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		SysFile record = Spring4WebHelper.saveFile(request, file);
+		System.out.println(record);
 		long endTime = System.currentTimeMillis();
 		String message = "方法一的运行时间：" + String.valueOf(endTime - startTime)
-				+ "ms";
+				+ "ms,信息：" + record;
 		System.out.println(message);
 		model.addAttribute("message", message);
 		return "success";
@@ -74,20 +59,16 @@ public class FileUploadDownloadController {
 
 	@RequestMapping(value = "/upload02")
 	public String uploadFile02(@RequestParam("file") CommonsMultipartFile file,
-			Model model) throws IllegalStateException, IOException {
+			Model model, HttpServletRequest request)
+			throws IllegalStateException, IOException {
 
 		long startTime = System.currentTimeMillis();
-		System.out.println("fileName：" + file.getOriginalFilename());
-		String path = "E:/" + new Date().getTime() + file.getOriginalFilename();
 
-		File newFile = new File(path);
-		// 通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-		file.transferTo(newFile);
+		SysFile record = Spring4WebHelper.saveFile2(request, file);
+
 		long endTime = System.currentTimeMillis();
-		// System.out.println("方法二的运行时间：" + String.valueOf(endTime - startTime)
-		// + "ms");
 		String message = "方法二的运行时间：" + String.valueOf(endTime - startTime)
-				+ "ms";
+				+ "ms,信息：" + record;
 		System.out.println(message);
 		model.addAttribute("message", message);
 		return "success";
@@ -98,37 +79,19 @@ public class FileUploadDownloadController {
 	public String uploadFile03(HttpServletRequest request, Model model)
 			throws IllegalStateException, IOException {
 		long startTime = System.currentTimeMillis();
-		// 将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-				request.getSession().getServletContext());
-		// 检查form中是否有enctype="multipart/form-data"
-		if (multipartResolver.isMultipart(request)) {
-			// 将request变成多部分request
-			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-			// 获取multiRequest 中所有的文件名
-			Iterator iter = multiRequest.getFileNames();
 
-			while (iter.hasNext()) {
-				// 一次遍历所有文件
-				MultipartFile file = multiRequest.getFile(iter.next()
-						.toString());
-				if (file != null) {
-					String path = "E:/springUpload"
-							+ file.getOriginalFilename();
-					// 上传
-					file.transferTo(new File(path));
-				}
+		List<SysFile> files = Spring4WebHelper.saveFiles(request);
 
-			}
-
-		}
 		long endTime = System.currentTimeMillis();
-		// System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime)
-		// + "ms");
+
+		ObjectMapper mapper = new ObjectMapper();
 		String message = "方法三的运行时间：" + String.valueOf(endTime - startTime)
-				+ "ms";
+				+ "ms,信息:" + mapper.writeValueAsString(files);
+
 		System.out.println(message);
+
 		model.addAttribute("message", message);
+
 		return "success";
 		// return "upload";
 	}

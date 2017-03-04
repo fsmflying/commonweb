@@ -1,31 +1,39 @@
+
 package fsmflying.northwind.dm;
 
-public class Shipper {
-	private int shipperId;
-	private String companyName;
-	private String phone;
-	public int getShipperId() {
-		return shipperId;
-	}
-	public void setShipperId(int shipperId) {
-		this.shipperId = shipperId;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	@Override
-	public String toString() {
-		return "Shipper [shipperId=" + shipperId + ", companyName="
-				+ companyName + ", phone=" + phone + "]";
-	}
+
+public class Shipper{
 	
+	
+
+
+	private int mShipperID;
+	private String mCompanyName;
+	private String mPhone;
+
+	public int getShipperID(){
+		 return this.mShipperID;
+	}
+
+	public void setShipperID(int shipperID){
+		 this.mShipperID = shipperID ;
+	}
+
+	public String getCompanyName(){
+		 return this.mCompanyName;
+	}
+
+	public void setCompanyName(String companyName){
+		 this.mCompanyName = companyName ;
+	}
+
+	public String getPhone(){
+		 return this.mPhone;
+	}
+
+	public void setPhone(String phone){
+		 this.mPhone = phone ;
+	}
+
+
 }

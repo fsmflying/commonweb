@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fsmflying.sys.dm.helper.LoginResult;
 //import com.fsmflying.sys.dm.helper.User;
 
+import com.fsmflying.sys.service.SystemManageService;
+
 import fsmflying.commonweb.JsonHttpResult;
 import fsmflying.custom.domain.Student;
 import fsmflying.custom.domain.User;
@@ -27,6 +29,9 @@ public class RestJsonController {
 	// @Autowired
 	@Autowired
 	TestStudentService testStudentService;
+	
+	@Autowired
+	SystemManageService systemManageService;
 
 	@Autowired
 	NorthwindService northwindService;
@@ -85,6 +90,21 @@ public class RestJsonController {
 		else if ("supplier".equals(objectType))
 			httpResult.getData().put("list",
 					northwindService.getListOfSupplier());
+		else if ("sysuser".equals(objectType))
+			httpResult.getData().put("list",
+					systemManageService.getListOfSysUser());
+		else if ("sysemployee".equals(objectType))
+			httpResult.getData().put("list",
+					systemManageService.getListOfSysEmployee());
+		else if ("syscompany".equals(objectType))
+			httpResult.getData().put("list",
+					systemManageService.getListOfSysCompany());
+		else if ("sysdepartment".equals(objectType))
+			httpResult.getData().put("list",
+					systemManageService.getListOfSysDepartment());
+		else if ("sysrole".equals(objectType))
+			httpResult.getData().put("list",
+					systemManageService.getListOfSysRole());
 		else
 			httpResult.setMessage("no data!");
 		httpResult.setResult(1);
@@ -101,16 +121,16 @@ public class RestJsonController {
 			httpResult.getData().put("list",
 					testStudentService.getStudent(Integer.parseInt(id)));
 		else if ("customer".equals(objectType))
-			httpResult.getData().put("list", northwindService.getCustomer(id));
+			httpResult.getData().put("list", northwindService.getModelOfCustomer(id));
 		else if ("category".equals(objectType))
 			httpResult.getData().put("list",
-					northwindService.getCategory(Integer.parseInt(id)));
+					northwindService.getModelOfCategory(Integer.parseInt(id)));
 		else if ("shipper".equals(objectType))
 			httpResult.getData().put("list",
-					northwindService.getShipper(Integer.parseInt(id)));
+					northwindService.getModelOfShipper(Integer.parseInt(id)));
 		else if ("supplier".equals(objectType))
 			httpResult.getData().put("list",
-					northwindService.getSupplier(Integer.parseInt(id)));
+					northwindService.getModelOfSupplier(Integer.parseInt(id)));
 		else
 			httpResult.setMessage("no data!");
 		httpResult.setResult(1);

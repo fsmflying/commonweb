@@ -14,7 +14,8 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         ">
 	<!-- 配置自动扫描包 -->
-	<context:component-scan base-package="fsmflying"></context:component-scan>
+	<context:component-scan base-package="fsmflying"/>
+	<context:component-scan base-package="com.fsmflying"/>
 	<mvc:annotation-driven />
 	<tx:annotation-driven/>
 	<!-- 自动加载属性配置文件 -->
@@ -27,12 +28,33 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
+	<bean id="sysadminDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sysadmin.jdbc.driverClassName}" />
+		<property name="url" value="${sysadmin.jdbc.url}" />
+		<property name="username" value="${sysadmin.jdbc.username}" />
+		<property name="password" value="${sysadmin.jdbc.password}" />
+	</bean>
+	<bean id="syslogDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${syslog.jdbc.driverClassName}" />
+		<property name="url" value="${syslog.jdbc.url}" />
+		<property name="username" value="${syslog.jdbc.username}" />
+		<property name="password" value="${syslog.jdbc.password}" />
+	</bean>
 	<bean id="northwindDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${northwind.jdbc.driverClassName}" />
 		<property name="url" value="${northwind.jdbc.url}" />
 		<property name="username" value="${northwind.jdbc.username}" />
 		<property name="password" value="${northwind.jdbc.password}" />
+	</bean>
+	<bean id="sequenceDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sequence.jdbc.driverClassName}" />
+		<property name="url" value="${sequence.jdbc.url}" />
+		<property name="username" value="${sequence.jdbc.username}" />
+		<property name="password" value="${sequence.jdbc.password}" />
 	</bean>
 	
 	<bean id="txManager"
@@ -76,6 +98,11 @@
 	
 	<bean id="sequenceService" class="com.fsmflying.sys.service.impl.SequenceServiceImpl"></bean>
 	<bean id="sequenceDao" class="com.fsmflying.spring.dao.impl.SequenceDaoImpl">
+		<property name="dataSource" ref="sequenceDataSource"></property>
+	</bean>
+	
+	<bean id="systemManageService" class="com.fsmflying.sys.service.impl.SystemManageServiceImpl"></bean>
+	<bean id="systemManageDao" class="com.fsmflying.spring.dao.impl.SystemManageDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	

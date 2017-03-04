@@ -81,8 +81,11 @@
 		<form action="file/upload03" method="post" target="_blank" enctype="multipart/form-data">
 			<input type="hidden" name="_method" value="POST" />
 			<div class="formItem">
-				<label class="formItemTitle" for="file">file:</label>
-				<input type="file" name="file">
+				<label class="formItemTitle" for="file1">file:</label>
+				<input type="file" name="file1">
+				<input type="file" name="file2">
+				<input type="file" name="file3">
+				<input type="file" name="file4">
 			</div>
 			<input type="submit" value="提交" />
 		</form>
