@@ -103,7 +103,7 @@
 	
 	<bean id="systemManageService" class="com.fsmflying.sys.service.impl.SystemManageServiceImpl"></bean>
 	<bean id="systemManageDao" class="com.fsmflying.spring.dao.impl.SystemManageDaoImpl">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="sysadminDataSource"></property>
 	</bean>
 	
 
