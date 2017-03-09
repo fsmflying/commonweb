@@ -3,15 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd       
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         ">
 	<!-- 配置自动扫描包 -->
 	<context:component-scan base-package="fsmflying"/>
@@ -56,11 +62,50 @@
 		<property name="username" value="${sequence.jdbc.username}" />
 		<property name="password" value="${sequence.jdbc.password}" />
 	</bean>
+	<bean id="education01DataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${education01.jdbc.driverClassName}" />
+		<property name="url" value="${education01.jdbc.url}" />
+		<property name="username" value="${education01.jdbc.username}" />
+		<property name="password" value="${education01.jdbc.password}" />
+	</bean>
+	<bean id="education02DataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${education02.jdbc.driverClassName}" />
+		<property name="url" value="${education02.jdbc.url}" />
+		<property name="username" value="${education02.jdbc.username}" />
+		<property name="password" value="${education02.jdbc.password}" />
+	</bean>
 	
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="education01DataSource" />
 	</bean>
+	
+	<!-- 定义一个事务通知， -->
+	<tx:advice id="txAdvice" transaction-manager="txManager" >
+		<tx:attributes>
+			<!--  
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+			-->
+			<tx:method name="*ByTrans"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 确保 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* fsmflying.demo.service..*.*(..))" id="demoPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="demoPointcut"/>
+		
+	</aop:config>
+	
+	<!--  
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
+	
+  	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+  	-->
+  
+  
 
 	<!-- 配置视图解析器：如何把handler方法返回值解析为实际的视图 -->
 	<bean
@@ -106,6 +151,13 @@
 		<property name="dataSource" ref="sysadminDataSource"></property>
 	</bean>
 	
+	<bean id="educationService" class="fsmflying.demo.service.impl.OrderServiceImpl"></bean>
+	<bean id="orderDao" class="fsmflying.demo.dao.impl.OrderDaoImpl">
+		<property name="dataSource" ref="education01DataSource"></property>
+	</bean>	
+	<bean id="orderDetailDao" class="fsmflying.demo.dao.impl.OrderDetailDaoImpl">
+		<property name="dataSource" ref="education01DataSource"></property>
+	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>

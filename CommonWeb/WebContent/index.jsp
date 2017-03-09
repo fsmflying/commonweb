@@ -40,6 +40,12 @@
 		<li><a href="testjson/getResult/one/shipper/1" target="_blank">testjson/getResult/one/shipper/1：以Json格式返回id为1的shipper对象</a></li>
 		<li><a href="testjson/getResult/one/supplier/1" target="_blank">testjson/getResult/one/supplier/1：以Json格式返回id为1的supplier对象</a></li>
 		<li><a href="testjson/getResult/one/customer/ALFKI" target="_blank">testjson/getResult/one/customer/ALFKI：以Json格式返回id为ALFKI的customer对象</a></li>
+		<li><a href="trans/order/add" target="_blank">事务测试:/trans/order/add,没有错误!</a></li>
+		<li><a href="trans/order/addWithOrderError" target="_blank">事务测试:/trans/order/addWithOrderError,Order错误!</a></li>
+		<li><a href="trans/order/addWithDetailError" target="_blank">事务测试:/trans/order/addWithDetailError,OrderDetail错误!</a></li>
+		<li><a href="trans/order/addByTrans" target="_blank">事务测试:/trans/order/addByTrans,没有错误!</a></li>
+		<li><a href="trans/order/addWithOrderErrorByTrans" target="_blank">事务测试:/trans/order/addWithOrderErrorByTrans,Order错误!</a></li>
+		<li><a href="trans/order/addWithDetailErrorByTrans" target="_blank">事务测试:/trans/order/addWithDetailErrorByTrans,OrderDetail错误!</a></li>
 	</ol>
 </body>
 </html>
