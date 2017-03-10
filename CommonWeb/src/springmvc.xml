@@ -169,4 +169,7 @@
 	     <property name="maxInMemorySize" value="4096" />
 	     <property name="defaultEncoding" value="UTF-8"/>
 	</bean>
+	
+	<mvc:resources location="/js/**" mapping="/js/"></mvc:resources>
+	<mvc:default-servlet-handler/>
 </beans>
