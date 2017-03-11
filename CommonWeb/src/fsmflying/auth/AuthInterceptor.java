@@ -33,7 +33,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                     flag = false;  
                 } else {// 登录了检查,方法上只是@Auth,表示只要求登录就能通过.@Auth("authority")这类型,验证用户权限  
                     if (!"".equals(auth.value())) {  
-                        Set<String> auths = (Set<String>) request.getSession().getAttribute(SESSION_AUTHS);  
+                        @SuppressWarnings("unchecked")
+						Set<String> auths = (Set<String>) request.getSession().getAttribute(SESSION_AUTHS);  
                         if (!auths.contains(auth.value())) {// 提示用户没权限  
                             response.setStatus(HttpStatus.FORBIDDEN.value());  
                             response.setContentType("text/html; charset=UTF-8");  

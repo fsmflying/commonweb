@@ -3,14 +3,18 @@ package fsmflying.commonweb.controller;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.stereotype.Controller;
 
+import com.fsmflying.sys.dm.SysUser;
 import com.fsmflying.sys.dm.helper.LoginResult;
 import com.fsmflying.sys.dm.helper.User;
+import com.fsmflying.sys.service.SystemManageService;
 
 import fsmflying.auth.Auth;
 import fsmflying.auth.AuthInterceptor;
@@ -20,10 +24,21 @@ import fsmflying.auth.AuthInterceptor;
 @RequestMapping("/user")
 public class UserController {
 
-	@RequestMapping("/login")
+	@Resource
+	SystemManageService systemManageService;
+	
+	@RequestMapping(value="/login",method={RequestMethod.POST})
+	public String toLoginPage() {
+		return "login";
+	}
+	
+	@RequestMapping(value="/login",method={RequestMethod.POST})
 	public boolean login(HttpSession session, User user) {
 		boolean result = false;
 		// 模拟从数据库查出存在这样的用户
+		SysUser sysUser = systemManageService.getModelOfSysUser(user.getUsername());
+//		User user = null;
+//		if(sysUser!=null) 
 		Long userId = (long) user.getUserId();
 		if (userId != null && userId > 0) {
 			session.setAttribute(AuthInterceptor.SESSION_USERID, userId);
@@ -37,7 +52,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/login")
+	@RequestMapping("/logout")
 	public boolean logout(HttpSession session,User user)
 	{
 		

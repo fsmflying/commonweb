@@ -69,28 +69,7 @@
 					</td>
 				</tr>
 			</table>
-			<!--  
-			<p>用户名: <input type="text"></p>
-			<p>密&#8195;码: <input type="password"></p>
-			<div style="padding:5px;text-align:center;">
-			</div>
-			<div>
-				<label for="username" style="width: 120px;">用户名:</label> <input
-					class="easyui-validatebox" type="text" name="username"
-					data-options="required:true" />
-			</div>
-			<div>
-				<label for="password" style="width: 120px;">密&#8195;码:</label> <input
-					class="easyui-validatebox" type="password" name="password"
-					data-options="validType:'email'" />
-			</div>
-			<div>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
-					onclick="login()">Save</a> <a href="#" class="easyui-linkbutton"
-					iconCls="icon-cancel"
-					onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
-			</div>
-			-->
+			
 		</div>
 	</form>
 </body>
