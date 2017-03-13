@@ -18,6 +18,9 @@
 	<h1>CommonWeb</h1>
 	<h2>Index</h2>
 	<ol class="actionlist">
+		<li><a href="ui/user/login" target="_blank">登录</a></li>
+		<li><a href="user/logout" target="_blank">登出</a></li>
+		<li><a href="ui/sysadmin/user/add" target="_blank">添加用户</a></li>
 		<li><a href="default.jsp" target="_blank">EasyUI桌面</a></li>
 		<li><a href="fileUploadDownload.jsp" target="_blank">文件的上传下载测试</a></li>
 		<li><a href="test.jsp" target="_blank">测试特定功能,比如序号生成器</a></li>

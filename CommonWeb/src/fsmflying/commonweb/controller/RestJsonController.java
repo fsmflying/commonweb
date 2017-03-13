@@ -2,7 +2,9 @@ package fsmflying.commonweb.controller;
 
 //import org.springframework.web.bind.annotation.GetMapping;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,11 +75,18 @@ public class RestJsonController {
 	public JsonHttpResult getListResult(
 			@PathVariable("objectType") String objectType) {
 		JsonHttpResult httpResult = new JsonHttpResult();
+		//Set<Object> rows=null;
+		List<?> rows=null;
 		if ("student".equals(objectType))
+		{
+//			rows = testStudentService.getStudent(testStudentService
+//					.getMaxStudentId());
+			
 			httpResult.getData().put(
 					"list",
 					testStudentService.getStudent(testStudentService
 							.getMaxStudentId()));
+		}
 		else if ("customer".equals(objectType))
 			httpResult.getData().put("list",
 					northwindService.getListOfCustomer());
@@ -91,22 +100,21 @@ public class RestJsonController {
 			httpResult.getData().put("list",
 					northwindService.getListOfSupplier());
 		else if ("sysuser".equals(objectType))
-			httpResult.getData().put("list",
-					systemManageService.getListOfSysUser());
+		{
+			rows = systemManageService.getListOfSysUser();
+		}
 		else if ("sysemployee".equals(objectType))
-			httpResult.getData().put("list",
-					systemManageService.getListOfSysEmployee());
+			rows = systemManageService.getListOfSysEmployee();
 		else if ("syscompany".equals(objectType))
-			httpResult.getData().put("list",
-					systemManageService.getListOfSysCompany());
+			rows = systemManageService.getListOfSysCompany();
 		else if ("sysdepartment".equals(objectType))
-			httpResult.getData().put("list",
-					systemManageService.getListOfSysDepartment());
+			rows = systemManageService.getListOfSysDepartment();
 		else if ("sysrole".equals(objectType))
-			httpResult.getData().put("list",
-					systemManageService.getListOfSysRole());
+			rows = systemManageService.getListOfSysRole();
 		else
 			httpResult.setMessage("no data!");
+		
+		httpResult.setRows(rows);
 		httpResult.setResult(1);
 		httpResult.setMessage("success");
 		return httpResult;

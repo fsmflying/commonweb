@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+	
+	<context:component-scan base-package="com.fsmflying"/>
+	
+	
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<bean id="sysadminDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sysadmin.jdbc.driverClassName}" />
+		<property name="url" value="${sysadmin.jdbc.url}" />
+		<property name="username" value="${sysadmin.jdbc.username}" />
+		<property name="password" value="${sysadmin.jdbc.password}" />
+	</bean>
+	<bean id="syslogDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${syslog.jdbc.driverClassName}" />
+		<property name="url" value="${syslog.jdbc.url}" />
+		<property name="username" value="${syslog.jdbc.username}" />
+		<property name="password" value="${syslog.jdbc.password}" />
+	</bean>
+	<bean id="sequenceDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sequence.jdbc.driverClassName}" />
+		<property name="url" value="${sequence.jdbc.url}" />
+		<property name="username" value="${sequence.jdbc.username}" />
+		<property name="password" value="${sequence.jdbc.password}" />
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sysadminDataSource" />
+	</bean>
+
+	<!-- 定义一个事务通知， -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<!-- <tx:method name="get*" read-only="true"/> <tx:method name="*"/> -->
+			<tx:method name="*ByTrans" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 确保 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* fsmflying.demo.service..*.*(..))"
+			id="demoPointcut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="demoPointcut" />
+
+	</aop:config>
+	
+
+	<bean id="sequenceService" class="com.fsmflying.sys.service.impl.SequenceServiceImpl"></bean>
+	<bean id="sequenceDao" class="com.fsmflying.spring.dao.impl.SequenceDaoImpl">
+		<property name="dataSource" ref="sequenceDataSource"></property>
+	</bean>
+
+	<bean id="systemManageService" class="com.fsmflying.sys.service.impl.SystemManageServiceImpl">
+		<!-- <property name="cacheService" ref="cacheService"></property> -->
+	</bean>
+	<bean id="systemManageDao" class="com.fsmflying.spring.dao.impl.SystemManageDaoImpl">
+		<property name="dataSource" ref="sysadminDataSource"></property>
+	</bean>
+
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	        
+</beans>

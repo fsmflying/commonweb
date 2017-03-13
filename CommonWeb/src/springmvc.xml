@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
@@ -20,10 +17,13 @@
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         ">
 	<!-- 配置自动扫描包 -->
-	<context:component-scan base-package="fsmflying"/>
-	<context:component-scan base-package="com.fsmflying"/>
-	<mvc:annotation-driven />
-	<tx:annotation-driven/>
+	<context:component-scan base-package="fsmflying" />
+	<context:component-scan base-package="com.fsmflying" />
+	
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven /> 
+	
+	<tx:annotation-driven />
 	<!-- 自动加载属性配置文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
 
@@ -76,36 +76,32 @@
 		<property name="username" value="${education02.jdbc.username}" />
 		<property name="password" value="${education02.jdbc.password}" />
 	</bean>
-	
+
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="education01DataSource" />
 	</bean>
-	
+
 	<!-- 定义一个事务通知， -->
-	<tx:advice id="txAdvice" transaction-manager="txManager" >
+	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
-			<!--  
-			<tx:method name="get*" read-only="true"/>
-			<tx:method name="*"/>
-			-->
-			<tx:method name="*ByTrans"/>
+			<!-- <tx:method name="get*" read-only="true"/> <tx:method name="*"/> -->
+			<tx:method name="*ByTrans" />
 		</tx:attributes>
 	</tx:advice>
 	<!-- 确保 -->
 	<aop:config>
-		<aop:pointcut expression="execution(* fsmflying.demo.service..*.*(..))" id="demoPointcut"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="demoPointcut"/>
-		
+		<aop:pointcut expression="execution(* fsmflying.demo.service..*.*(..))"
+			id="demoPointcut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="demoPointcut" />
+
 	</aop:config>
-	
-	<!--  
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
-	
-  	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
-  	-->
-  
-  
+
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/> <bean 
+		id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" 
+		/> -->
+
+
 
 	<!-- 配置视图解析器：如何把handler方法返回值解析为实际的视图 -->
 	<bean
@@ -113,48 +109,43 @@
 		<property name="prefix" value="/WEB-INF/pages/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 	<!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" 
 		> <property name="order" value="10"/> </bean> -->
 
 	<!-- XMl及JSON视图解析器配置 -->
-	<!-- 
-	<bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
-		p:renderedAttributes="userList" /> 
-	<bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"> 
-		<property name="renderedAttributes"> 
-			<set> 
-				<value>list</value>
-			</set> 
-		</property> 
-	</bean> 
-	-->
+	<!-- <bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
+		p:renderedAttributes="userList" /> <bean id="userListJson" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"> 
+		<property name="renderedAttributes"> <set> <value>list</value> </set> </property> 
+		</bean> -->
 
 
 	<bean id="northwindService" class="fsmflying.northwind.service.impl.NorthwindServiceImpl"></bean>
 	<bean id="northwindDao" class="fsmflying.northwind.dao.impl.NorthwindDaoImpl">
 		<property name="dataSource" ref="northwindDataSource"></property>
 	</bean>
-	
+
 	<bean id="testStudentService" class="fsmflying.custom.service.impl.TestStudentServiceImpl"></bean>
 	<bean id="testStudentDAO" class="fsmflying.custom.dao.impl.TestStudentDAOImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
+
 	<bean id="sequenceService" class="com.fsmflying.sys.service.impl.SequenceServiceImpl"></bean>
 	<bean id="sequenceDao" class="com.fsmflying.spring.dao.impl.SequenceDaoImpl">
 		<property name="dataSource" ref="sequenceDataSource"></property>
 	</bean>
-	
-	<bean id="systemManageService" class="com.fsmflying.sys.service.impl.SystemManageServiceImpl"></bean>
+
+	<bean id="systemManageService" class="com.fsmflying.sys.service.impl.SystemManageServiceImpl">
+		<!-- <property name="cacheService" ref="cacheService"></property> -->
+	</bean>
 	<bean id="systemManageDao" class="com.fsmflying.spring.dao.impl.SystemManageDaoImpl">
 		<property name="dataSource" ref="sysadminDataSource"></property>
 	</bean>
-	
+
 	<bean id="educationService" class="fsmflying.demo.service.impl.OrderServiceImpl"></bean>
 	<bean id="orderDao" class="fsmflying.demo.dao.impl.OrderDaoImpl">
 		<property name="dataSource" ref="education01DataSource"></property>
-	</bean>	
+	</bean>
 	<bean id="orderDetailDao" class="fsmflying.demo.dao.impl.OrderDetailDaoImpl">
 		<property name="dataSource" ref="education01DataSource"></property>
 	</bean>
@@ -163,13 +154,37 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
+	<!-- -->
+	<bean id="cacheService" class="fsmflying.CustomCacheService"></bean>
+
+
+
 	<!-- 多部分文件上传 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	     <property name="maxUploadSize" value="104857600" />
-	     <property name="maxInMemorySize" value="4096" />
-	     <property name="defaultEncoding" value="UTF-8"/>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
+
+	<!--
+	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+	-->
+	<!---->
 	
-	<mvc:resources location="/js/**" mapping="/js/"></mvc:resources>
-	<mvc:default-servlet-handler/>
+
+	<!-- 拦截器 如果不配置或/**,将拦截所有的Controller -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.fsmflying.spring.auth.AuthInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 解决日期格式转化问题 <mvc:annotation-driven> <mvc:message-converters> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="objectMapper" ref="customObjectMapper"></property> </bean> 
+		</mvc:message-converters> </mvc:annotation-driven> <bean id="customObjectMapper" 
+		class="com.fsmflying.spring.CustomObjectMapper"></bean> -->
+
+
 </beans>

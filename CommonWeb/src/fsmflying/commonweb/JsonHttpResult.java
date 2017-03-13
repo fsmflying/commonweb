@@ -1,12 +1,15 @@
 package fsmflying.commonweb;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class JsonHttpResult {
 	private int result = 1;
 	private Map<String,Object> data;
 	private String message;
+	private List<?> rows;
 	
 	
 	public JsonHttpResult() {
@@ -30,6 +33,12 @@ public class JsonHttpResult {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public List<?> getRows() {
+		return rows;
+	}
+	public void setRows(List<?> rows) {
+		this.rows = rows;
 	}
 	
 }
