@@ -164,20 +164,15 @@
 					<li data-options="state:'closed'"><span>系统管理</span>
 						<ul>
 							<li><a href="javascript:showContent('ui/sysadmin/user/list','用户管理')"><span>用户管理</span></a></li>
-							<li><a
-								href="javascript:showContent('ui/sysadmin/role/list','角色管理')" /><span>角色管理</span></a></li>
-							<li><a
-								href="javascript:showContent('ui/sysadmin/menu/list','菜单管理')" /><span>菜单管理</span></a></li>
-							<li><a
-								href="javascript:showContent('ui/sysadmin/tab/list','标签管理')" /><span>标签管理</span></a></li>	
-							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','公司管理')" /><span>公司管理</span></a></li>	
-							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','组织机构管理')" /><span>组织机构管理</span></a></li>
-							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','数据权限管理')" /><span>数据权限管理</span></a></li>	
+							<li><a href="javascript:showContent('ui/sysadmin/role/list','角色管理')"><span>角色管理</span></a></li>
+							<li><a href="javascript:showContent('ui/sysadmin/menu/list','菜单管理')"><span>菜单管理</span></a></li>
+							<li><a href="javascript:showContent('ui/sysadmin/tab/list','标签管理')"><span>标签管理</span></a></li>	
+							<li><a href="javascript:showContent('ui/sysadmin/company/list','公司管理')" ><span>公司管理</span></a></li>	
+							<li><a href="javascript:showContent('ui/sysadmin/company/list','组织机构管理')"><span>组织机构管理</span></a></li>
+							<li><a href="javascript:showContent('ui/sysadmin/company/list','数据权限管理')"><span>数据权限管理</span></a></li>	
 							
-						</ul></li>
+						</ul>
+					</li>
 					<li><span>Program Files</span>
 						<ul>
 							<li>Intel</li>
@@ -188,7 +183,8 @@
 					<li>index.html</li>
 					<li>about.html</li>
 					<li>welcome.html</li>
-				</ul></li>
+				</ul>
+			</li>
 		</ul>
 
 	</div>

@@ -18,28 +18,29 @@
 
 	function loadTreeMenu() {
 		$.ajax({
-			url : "<%=this.getServletConfig().getServletContext().getContextPath()%>/json/getUserTabs",
-			
-			success : function(data,textStatus,xhr) {
-				if(data["rows"])
-				{
-					alert(data["rows"]);
-				
-				}
-			}
-		});
+			url : "<%=this.getServletConfig().getServletContext().getContextPath()%>
+	/json/getUserTabs",
+
+					success : function(data, textStatus, xhr) {
+						if (data["rows"]) {
+							alert(data["rows"]);
+
+						}
+					}
+				});
 
 	}
 
-	function showContent(url,title) {
-		if ($('#tt').tabs('exists', title)){
+	function showContent(url, title) {
+		if ($('#tt').tabs('exists', title)) {
 			$('#tt').tabs('select', title);
 		} else {
-			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
-			$('#tt').tabs('add',{
-				title:title,
-				content:content,
-				closable:true
+			var content = '<iframe scrolling="auto" frameborder="0"  src="'
+					+ url + '" style="width:100%;height:100%;"></iframe>';
+			$('#tt').tabs('add', {
+				title : title,
+				content : content,
+				closable : true
 			});
 		}
 	}
@@ -60,20 +61,21 @@
 				<ul>
 					<li data-options="state:'closed'"><span>系统管理</span>
 						<ul>
-							<li><a href="javascript:showContent('ui/sysadmin/user/list','用户管理')"><span>用户管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/role/list','角色管理')" /><span>角色管理</span></a></li>
+								href="javascript:showContent('ui/sysadmin/user/list','用户管理')"><span>用户管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/menu/list','菜单管理')" /><span>菜单管理</span></a></li>
+								href="javascript:showContent('ui/sysadmin/role/list','角色管理')"><span>角色管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/tab/list','标签管理')" /><span>标签管理</span></a></li>	
+								href="javascript:showContent('ui/sysadmin/menu/list','菜单管理')"><span>菜单管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','公司管理')" /><span>公司管理</span></a></li>	
+								href="javascript:showContent('ui/sysadmin/tab/list','标签管理')"><span>标签管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','组织机构管理')" /><span>组织机构管理</span></a></li>
+								href="javascript:showContent('ui/sysadmin/company/list','公司管理')"><span>公司管理</span></a></li>
 							<li><a
-								href="javascript:showContent('ui/sysadmin/company/list','数据权限管理')" /><span>数据权限管理</span></a></li>	
-							
+								href="javascript:showContent('ui/sysadmin/company/list','组织机构管理')"><span>组织机构管理</span></a></li>
+							<li><a
+								href="javascript:showContent('ui/sysadmin/company/list','数据权限管理')"><span>数据权限管理</span></a></li>
+
 						</ul></li>
 					<li><span>Program Files</span>
 						<ul>
@@ -93,25 +95,19 @@
 		data-options="region:'east',split:true,collapsed:true,title:'East'"
 		style="width: 100px; padding: 10px;">east region</div>
 	<div data-options="region:'south',border:false"
-		style="height: 50px; background: #A9FACD; padding: 10px;">
-		
-		south
-		region
-		
-	</div>
+		style="height: 50px; background: #A9FACD; padding: 10px;">south
+		region</div>
 	<!-- 
 	<div data-options="region:'center',title:'Center'"></div>
  	-->
-		<div id="tt" data-options="region:'center'" class="easyui-tabs" style="width: 99%; height: 99%;">
-			<div title="我的桌面" style="padding: 10px;">
-				
-			</div>
-			<div title="我的通知" data-options="closable:true" style="padding: 10px;">
-				Second Tab
-			</div>
-			<div title="即时消息" data-options="closable:true" iconCls="icon-reload"
-				style="padding: 10px;">Third Tab</div>
-		
+	<div id="tt" data-options="region:'center'" class="easyui-tabs"
+		style="width: 99%; height: 99%;">
+		<div title="我的桌面" style="padding: 10px;"></div>
+		<div title="我的通知" data-options="closable:true" style="padding: 10px;">
+			Second Tab</div>
+		<div title="即时消息" data-options="closable:true" iconCls="icon-reload"
+			style="padding: 10px;">Third Tab</div>
+
 
 	</div>
 </body>
