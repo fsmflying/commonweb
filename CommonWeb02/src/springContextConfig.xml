@@ -84,6 +84,8 @@
 	<bean id="systemManageDao" class="com.fsmflying.spring.dao.impl.SystemManageDaoImpl">
 		<property name="dataSource" ref="sysadminDataSource"></property>
 	</bean>
+	
+	<bean id="configService" class="com.fsmflying.sys.service.impl.ConfigServiceImpl"/>
 
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

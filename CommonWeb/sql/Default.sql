@@ -111,7 +111,78 @@ where b.tabid=?
 
 
 
+--查询‘修改表字段类型’的sql语句
+select concat('alter table ',table_name,' change ',column_name,' ',column_name,' datetime not null;') 
+from information_schema.columns 
+where table_schema='common_sysadmin' and column_name in ('DbCreateTime','DbLastUpdateTime');
+ 
+ 
++-----------------------------------------------------------------------------------+
+| concat('alter table ',table_name,' change ',column_name,' ',column_name,' date;') |
++-----------------------------------------------------------------------------------+
+| alter table sys_companys change DbCreateTime DbCreateTime date;                   |
+| alter table sys_companys change DbLastUpdateTime DbLastUpdateTime date;           |
+| alter table sys_configs change DbCreateTime DbCreateTime date;                    |
+| alter table sys_configs change DbLastUpdateTime DbLastUpdateTime date;            |
+| alter table sys_custompages change DbCreateTime DbCreateTime date;                |
+| alter table sys_custompages change DbLastUpdateTime DbLastUpdateTime date;        |
+| alter table sys_dataauthitems change DbCreateTime DbCreateTime date;              |
+| alter table sys_dataauthitems change DbLastUpdateTime DbLastUpdateTime date;      |
+| alter table sys_dataauths change DbCreateTime DbCreateTime date;                  |
+| alter table sys_dataauths change DbLastUpdateTime DbLastUpdateTime date;          |
+| alter table sys_departments change DbCreateTime DbCreateTime date;                |
+| alter table sys_departments change DbLastUpdateTime DbLastUpdateTime date;        |
+| alter table sys_dictdirs change DbCreateTime DbCreateTime date;                   |
+| alter table sys_dictdirs change DbLastUpdateTime DbLastUpdateTime date;           |
+| alter table sys_dictitems change DbCreateTime DbCreateTime date;                  |
+| alter table sys_dictitems change DbLastUpdateTime DbLastUpdateTime date;          |
+| alter table sys_files change DbCreateTime DbCreateTime date;                      |
+| alter table sys_funcpoints change DbCreateTime DbCreateTime date;                 |
+| alter table sys_funcpoints change DbLastUpdateTime DbLastUpdateTime date;         |
+| alter table sys_menus change DbCreateTime DbCreateTime date;                      |
+| alter table sys_menus change DbLastUpdateTime DbLastUpdateTime date;              |
+| alter table sys_roles change DbCreateTime DbCreateTime date;                      |
+| alter table sys_roles change DbLastUpdateTime DbLastUpdateTime date;              |
+| alter table sys_tabs change DbCreateTime DbCreateTime date;                       |
+| alter table sys_tabs change DbLastUpdateTime DbLastUpdateTime date;               |
+| alter table sys_users change DbCreateTime DbCreateTime date;                      |
+| alter table sys_users change DbLastUpdateTime DbLastUpdateTime date;              |
++-----------------------------------------------------------------------------------+
+27 rows in set (0.01 sec)
+
+
+
+ alter table sys_companys change DbCreateTime DbCreateTime date not null;
+ alter table sys_companys change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_configs change DbCreateTime DbCreateTime date not null;
+ alter table sys_configs change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_custompages change DbCreateTime DbCreateTime date not null;
+ alter table sys_custompages change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_dataauthitems change DbCreateTime DbCreateTime date not null;
+ alter table sys_dataauthitems change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_dataauths change DbCreateTime DbCreateTime date not null;
+ alter table sys_dataauths change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_departments change DbCreateTime DbCreateTime date not null;
+ alter table sys_departments change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_dictdirs change DbCreateTime DbCreateTime date not null;
+ alter table sys_dictdirs change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_dictitems change DbCreateTime DbCreateTime date not null;
+ alter table sys_dictitems change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_files change DbCreateTime DbCreateTime date not null;
+ alter table sys_funcpoints change DbCreateTime DbCreateTime date not null;
+ alter table sys_funcpoints change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_menus change DbCreateTime DbCreateTime date not null;
+ alter table sys_menus change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_roles change DbCreateTime DbCreateTime date not null;
+ alter table sys_roles change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_tabs change DbCreateTime DbCreateTime date not null;
+ alter table sys_tabs change DbLastUpdateTime DbLastUpdateTime date not null;
+ alter table sys_users change DbCreateTime DbCreateTime date not null;
+ alter table sys_users change DbLastUpdateTime DbLastUpdateTime date not null;
+
 
  
-
+ 
+ select datatype from information_s
+chema.columns where table_schema='common_sysadmin' and column_name in ('DbCreateTime','DbLastUpdateTime');
 

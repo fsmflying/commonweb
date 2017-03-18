@@ -6,142 +6,168 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=this.getServletContext().getContextPath()%>/js/easyui/themes/icon.css">
-<!--<link rel="stylesheet" type="text/css" href="<%=this.getServletContext().getContextPath()%>/js/easyui/demo.css">-->
-<script type="text/javascript" src="<%=this.getServletContext().getContextPath()%>/js/easyui/jquery.min.js"></script>
-<script type="text/javascript" src="<%=this.getServletContext().getContextPath()%>/js/easyui/jquery.easyui.min.js"></script>
-<title>桌面:/default.jsp</title>
-<script type="text/javascript">
-	$(function() {
-		onloading();
-		loadTree();
-	});
-
-	function loadTree() {
-		$.ajax({
-			url : "<%=this.getServletContext().getContextPath()%>/json/getTreeTabMenus",
-			success : function(data,textStatus,xhr) {
-				
-				if(data["rows"]&&data["rows"].length>0)
-				{
-					var subNodes = [];
-					for(var i=0;i<data["rows"].length;i++)
-					{
-						var subMenuNodes = [];
-						if(data["rows"][i]["menus"]&&data["rows"][i]["menus"].length>0)
-						{
-							for(var j=0;j<data["rows"][i]["menus"].length;j++)
-							{
-								subMenuNodes[j]={id:data["rows"][i]["menus"][j]["menuId"],text:data["rows"][i]["menus"][j]["menuName"]};
-							}
-						}					
-						subNodes[i]={id:data["rows"][i]["tabId"],text:data["rows"][i]["tabName"],state:'closed',children:subMenuNodes};
-					}
-					//$('#menuTree').tree('append',{data:subNodes});
-					$('#menuTree').tree({data:subNodes});
-
-					$("#btnShowLogin").linkbutton("disable");
-					
-				}
-				else{
-					//alert($("#btnLogin").attr("disable"));
-					$("#btnLogout").linkbutton("disable");
-				}
-				removeload();
-			}
+	<link rel="stylesheet" type="text/css" href="<%=this.getServletContext().getContextPath()%>/js/easyui/themes/icon.css">
+	<!--<link rel="stylesheet" type="text/css" href="<%=this.getServletContext().getContextPath()%>/js/easyui/demo.css">-->
+	<script type="text/javascript" src="<%=this.getServletContext().getContextPath()%>/js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=this.getServletContext().getContextPath()%>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=this.getServletContext().getContextPath()%>/js/easyui/loadmask.js"></script>
+	<title>桌面:/default.jsp</title>
+	<script type="text/javascript">
+		$(function() {
+			onloading();
+			loadTree();
 		});
-
-	}
-
-
-	function showContent(url,title) {
-		if ($('#tt').tabs('exists', title)){
-			$('#tt').tabs('select', title);
-		} else {
-			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
-			$('#tt').tabs('add',{
-				title:title,
-				content:content,
-				closable:true
+	
+		function loadTree() {
+			$.ajax({
+				url : "<%=this.getServletContext().getContextPath()%>/json/getTreeTabMenus",
+				success : function(data,textStatus,xhr) {
+					
+					if(data["rows"]&&data["rows"].length>0)
+					{
+						var subNodes = [];
+						for(var i=0;i<data["rows"].length;i++)
+						{
+							var subMenuNodes = [];
+							if(data["rows"][i]["menus"]&&data["rows"][i]["menus"].length>0)
+							{
+								for(var j=0;j<data["rows"][i]["menus"].length;j++)
+								{
+									subMenuNodes[j]={id:data["rows"][i]["menus"][j]["menuId"],text:data["rows"][i]["menus"][j]["menuName"]};
+									subMenuNodes[j]["attributes"]={"clickable":true,"xtype":"menu","type":data["rows"][i]["menus"][j]["menuType"],"url":data["rows"][i]["menus"][j]["defaultUrl"]};
+									
+								}
+							}
+							subNodes[i]={id:data["rows"][i]["tabId"],text:data["rows"][i]["tabName"]};
+							subNodes[i]["children"]=subMenuNodes;
+							if(data["rows"][i]["tabType"]!=1)
+							{	
+								subNodes[i]["state"]="closed";
+							}
+							subNodes[i]["attributes"]={"xtype":"tab","type":data["rows"][i]["tabType"],"url":data["rows"][i]["defaultUrl"]};
+							if(data["rows"][i]["tabType"]!=0)
+							{
+								subNodes[i]["attributes"]["clickable"]=true;
+							}
+							
+						}
+						$('#menuTree').tree({
+							"data":subNodes
+						});
+	
+						$("#btnShowLogin").linkbutton("disable");
+						
+						
+						$("#menuTree").tree({
+							'onClick':function(node){
+								//$.messager.alert("消息", node.attributes.url, "信息");
+								if(node.attributes.clickable)
+									showContent(node.attributes.url,node.text);
+							}
+						});
+						
+						
+					}
+					else{
+						//alert($("#btnLogin").attr("disable"));
+						$("#btnLogout").linkbutton("disable");
+					}
+					removeload();
+				}
+			});
+	
+		}
+	
+		/*type=0:*/
+		function showContent(url,title,type) {
+			/**/
+			if(title == "桌面")
+			{
+				if ($('#tt').tabs('exists', "我的桌面")){
+					$('#tt').tabs('select', "我的桌面");
+					return;
+				}
+			}
+			if ($('#tt').tabs('exists', title)){
+				$('#tt').tabs('select', title);
+			} else {
+				var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+				$('#tt').tabs('add',{
+					title:title,
+					content:content,
+					closable:true
+				});
+			}
+		}
+		
+		function login() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+			//alert(username+"|"+password);
+			//$("#btnLogin").linkbutton("disable");
+			onloading();
+			//$("#loginw").window();
+			$.ajax({
+				type : "POST",
+				dataType : "json",
+				url : "<%=this.getServletConfig().getServletContext().getContextPath()%>/account/login",
+				cache:false,
+				data : {
+					Method : "Login",
+					"username":username,
+					"password":password
+				},
+				success : function(data,status,xhr) {
+					//alert(data["result"]);
+					if(data && data["result"]=="1")
+					{
+						$('#loginw').window('close');
+						refreshContent();
+						setTimeout(function(){
+							window.location.href = "<%=this.getServletConfig().getServletContext().getContextPath()%>/";
+						}, 2000);
+						
+					}
+					else
+					{
+						$.messager.alert("消息", data["message"], "信息");
+					}
+				},
+				error : function() {
+					$.messager.alert("消息", "错误！", "info");
+				}
 			});
 		}
-	}
-	
-	function login() {
-		var username = $("#username").val();
-		var password = $("#password").val();
-		//alert(username+"|"+password);
-		//$("#btnLogin").linkbutton("disable");
-		onloading();
-		//$("#loginw").window();
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			url : "<%=this.getServletConfig().getServletContext().getContextPath()%>/account/login",
-			cache:false,
-			data : {
-				Method : "Login",
-				"username":username,
-				"password":password
-			},
-			success : function(data,status,xhr) {
-				//alert(data["result"]);
-				if(data && data["result"]=="1")
-				{
-					$('#loginw').window('close');
-					refreshContent();
-					setTimeout(function(){
-						window.location.href = "<%=this.getServletConfig().getServletContext().getContextPath()%>/";
-					}, 2000);
-					
-				}
-				else
-				{
-					$.messager.alert("消息", data["message"], "信息");
-				}
-			},
-			error : function() {
-				$.messager.alert("消息", "错误！", "info");
-			}
-		});
-	}
-	
-	function logout()
-	{
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			url : "<%=this.getServletConfig().getServletContext().getContextPath()%>/account/logout",
-			success:function(data,status,xhr)
-			{
-				if(data["result"]==1)
-				{
-					refreshContent();
-					setTimeout(function(){
-						window.location.href = "<%=this.getServletConfig().getServletContext().getContextPath()%>/";
-					}, 2000);//2秒后刷新窗口
-					$.messager.alert("消息", data["message"], "信息");
-				}
-			}
-	
-		});
-	}
-	
-	function refreshContent()
-	{
 		
-	}
+		function logout()
+		{
+			$.ajax({
+				type : "POST",
+				dataType : "json",
+				url : "<%=this.getServletConfig().getServletContext().getContextPath()%>/account/logout",
+				success:function(data,status,xhr)
+				{
+					if(data["result"]==1)
+					{
+						refreshContent();
+						setTimeout(function(){
+							window.location.href = "<%=this.getServletConfig().getServletContext().getContextPath()%>/";
+						}, 2000);//2秒后刷新窗口
+						$.messager.alert("消息", data["message"], "信息");
+					}
+				}
+		
+			});
+		}
+		
+		function refreshContent()
+		{
+			
+		}
+		
+		
 	
-	function onloading(){  
-	     $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");   
-	     $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("body").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2});   
-	}  
-	function removeload(){  
-	    $(".datagrid-mask").remove();  
-	    $(".datagrid-mask-msg").remove();  
-	} 
-	
-</script>
+	</script>
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
@@ -203,7 +229,11 @@
  	-->
 		<div id="tt" data-options="region:'center'" class="easyui-tabs" style="width: 99%; height: 99%;">
 			<div title="我的桌面" style="padding: 10px;">
-				
+				<ul>
+					<li><a href="json/getTreeTabMenus" target="_blank">json/getTreeTabMenus:获取当前用户的树菜单</a></li>
+					<li><a href="json/getUserTabs" target="_blank">json/getUserTabs:获取当前用户的标签项</a></li>
+					<li><a href="json/getUserMenus" target="_blank">json/getUserMenus:获取当前用户的菜单项</a></li>
+				</ul>
 			</div>
 			<div title="我的通知" data-options="closable:true" style="padding: 10px;">
 				Second Tab

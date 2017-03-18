@@ -1,18 +1,19 @@
 package fsmflying.controller;
 
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fsmflying.spring.auth.Auth;
+//import com.fsmflying.spring.auth.Auth;
 
 @Controller
 //@RequestMapping("/ui")
 public class UIController {
 
+	/*
 	@RequestMapping(value = "/ui/user/login", method = { RequestMethod.GET })
 	public String goToUserLogin(HttpServletRequest request) {
 		System.out.println(request.getRequestURI().toString());
@@ -61,4 +62,5 @@ public class UIController {
 	{
 		return "sysadmin/SysUserAdd";
 	}
+	*/
 }
