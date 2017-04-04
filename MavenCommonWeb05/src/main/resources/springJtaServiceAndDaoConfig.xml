@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+
+
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:service.properties" />
+	
+	<!-- dao nothing -->
+	
+	<!-- services -->
+	<bean id="systemManageService"
+		class="com.fsmflying.hibernate.service.impl.SystemManageServiceImpl">
+		<property name="sessionFactory" ref="sysadminSessionFactory" />
+		<property name="sessionObtainedWay">
+			<value>1</value>
+		</property>
+	</bean>
+	
+	<bean id="configService" class="com.fsmflying.sys.service.impl.DefaultConfigServiceImpl">
+		<property name="systemManageService" ref="systemManageService"/>
+	</bean>
+
+	<bean id="sequenceService"
+		class="com.fsmflying.hibernate.service.impl.SequenceServiceImpl">
+		<property name="sessionFactory" ref="sequenceSessionFactory" />
+		<property name="sessionObtainedWay" >
+			<value>1</value>
+		</property>
+	</bean>
+
+	<bean id="logService" class="com.fsmflying.hibernate.service.impl.LogServiceImpl">
+		<property name="sessionFactory" ref="logSessionFactory" />
+		<property name="sessionObtainedWay">
+			<value>1</value>
+		</property>
+
+		<property name="isWriteDatabase" value="true" />
+		<property name="appName" value="MavenCommonWeb05" />
+		<property name="defaultLogLevel" value="1" />
+	</bean>
+
+</beans>

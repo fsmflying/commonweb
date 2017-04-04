@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+        
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="sequenceDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sequence.driverClassName}" />
+		<property name="url" value="${sequence.url}" />
+		<property name="username" value="${sequence.username}" />
+		<property name="password" value="${sequence.password}" />
+	</bean>
+		
+	<bean id="sysadminDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${sysadmin.driverClassName}" />
+		<property name="url" value="${sysadmin.url}" />
+		<property name="username" value="${sysadmin.username}" />
+		<property name="password" value="${sysadmin.password}" />
+	</bean>
+	
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${sysadmin.driverClassName}" />
+		<property name="url" value="${sysadmin.url}" />
+		<property name="username" value="${sysadmin.username}" />
+		<property name="password" value="${sysadmin.password}" />
+	</bean>
+	<!--  
+	<bean id="logDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${log.driverClassName}" />
+		<property name="url" value="${log.url}" />
+		<property name="username" value="${log.username}" />
+		<property name="password" value="${log.password}" />
+	</bean>
+	-->
+		
+	<bean id="logDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${log.driverClassName}" />
+		<property name="url" value="${log.url}" />
+		<property name="username" value="${log.username}" />
+		<property name="password" value="${log.password}" />
+	</bean>
+
+	
+
+</beans>

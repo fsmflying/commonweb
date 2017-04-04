@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+
+	
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jtajdbc2.properties" />
+
+	<!-- sessionFactory -->
+	<bean id="sysadminSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="sysadminDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.fsmflying.sys.dm.SysUser</value>
+				<value>com.fsmflying.sys.dm.SysRole</value>
+				<value>com.fsmflying.sys.dm.SysDictDir</value>
+				<value>com.fsmflying.sys.dm.SysDictItem</value>
+				<value>com.fsmflying.sys.dm.SysCompany</value>
+				<value>com.fsmflying.sys.dm.SysDepartment</value>
+				<value>com.fsmflying.sys.dm.SysEmployee</value>
+				<value>com.fsmflying.sys.dm.SysConfig</value>
+				<value>com.fsmflying.sys.dm.SysCustomPage</value>
+				<value>com.fsmflying.sys.dm.SysDataAuth</value>
+				<value>com.fsmflying.sys.dm.SysDataAuthItem</value>
+				<value>com.fsmflying.sys.dm.SysFile</value>
+				<value>com.fsmflying.sys.dm.SysTab</value>
+				<value>com.fsmflying.sys.dm.SysMenu</value>
+				<value>com.fsmflying.sys.dm.SysFuncPoint</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.fsmflying.sys.dm</value>
+			</list>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!--<value>SysUser.hbm.xml</value> -->
+			</list>
+		</property>
+		<property name="jtaTransactionManager" ref="springTransactionManager" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${sysadmin.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+
+
+				<!--<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop> -->
+
+				<!-- <prop key="hibernate.transaction.coordinator_class">jta</prop> <prop 
+					key="hibernate.current_session_context_class">jta</prop> <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+					<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringJtaSessionContext</prop> -->
+
+				<!-- <prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory</prop> 
+					<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop> -->
+				<!-- org.hibernate.engine.transaction.spi.AbstractTransactionImpl org.hibernate.internal.SessionImpl 
+					org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory <prop 
+					key="hibernate.transaction.jta.platform">org.hibernate.engine.transaction.jta.platform.internal.JBossAppServerJtaPlatform</prop> -->
+				
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+				
+				<!-- <prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop> 
+					<prop key="hibernate.current_session_context_class">jta</prop> -->
+				<prop key="hibernate.current_session_context_class">jta</prop>
+
+
+				<!-- hibernate 3 <prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+		<qualifier value="sysadminSessionFactory" />
+	</bean>
+
+	<bean id="logSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="logDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.fsmflying.sys.dm.SysLog</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.fsmflying.sys.dm</value>
+			</list>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!--<value>SysUser.hbm.xml</value> -->
+			</list>
+		</property>
+		<property name="jtaTransactionManager" ref="springTransactionManager"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${log.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<!--<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop> -->
+
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> 
+					<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+					<prop key="hibernate.current_session_context_class">jta</prop> <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringJtaSessionContext</prop> 
+					<property name="transaction.manager_lookup_class" value="org.hibernate.transaction.WeblogicTransactionManagerLookup" 
+					/> -->
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+
+				<!-- hibernate 3 -->
+				<prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+				</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+
+			</props>
+		</property>
+		<qualifier value="logSessionFactory" />
+	</bean>
+
+	<bean id="sequenceSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="sequenceDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.fsmflying.sys.dm.SysSequence</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.fsmflying.sys.dm</value>
+			</list>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!--<value>SysUser.hbm.xml</value> -->
+			</list>
+		</property>
+		<property name="jtaTransactionManager" ref="springTransactionManager"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${sequence.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<!--<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop> -->
+
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> 
+					<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+					<prop key="hibernate.current_session_context_class">jta</prop> <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringJtaSessionContext</prop> -->
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+
+				<!-- hibernate 3 -->
+				<prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+
+			</props>
+		</property>
+		<qualifier value="sequenceSessionFactory" />
+	</bean>
+
+	
+	<!-- 
+	
+	<bean id="sysadminHibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sysadminSessionFactory" />
+	</bean>
+	<bean id="sequenceHibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sequenceSessionFactory" />
+	</bean>
+	<bean id="logHibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="logSessionFactory" />
+	</bean>
+	
+	 -->
+
+</beans>

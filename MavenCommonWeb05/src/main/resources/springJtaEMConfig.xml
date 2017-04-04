@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+
+	
+	<context:component-scan base-package="com.fsmflying.sys.dm" />
+	<context:component-scan base-package="com.fsmflying.sys.service" />
+	<context:component-scan base-package="com.fsmflying.spring" />
+	<context:component-scan base-package="com.fsmflying.hibernate.jpa.impl" />
+	<context:component-scan base-package="com.fsmflying.mcommonweb05" />
+	
+	
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jtajdbc.properties" />
+	
+	<import resource="classpath:springJtaDataSourceConfigOfAtomikos.xml"/>
+	<import resource="classpath:springJtaTxConfigOfAtomikos.xml"/>
+
+	<!--  
+	<bean id="oralceHibernateJpaVendorAdapter"  
+	    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">  
+	    <property name="databasePlatform">  
+	        <value>org.hibernate.dialect.Oracle10gDialect</value>  
+	    </property>  
+	    <property name="showSql">  
+	        <value>true</value>  
+	    </property>  
+	    <property name="generateDdl">  
+	        <value>true</value>  
+	    </property>  
+	</bean>
+	-->
+	
+	<bean id="mysqlHibernateJpaVendorAdapter"  
+	    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">  
+	    <property name="databasePlatform">  
+	        <value>org.hibernate.dialect.MySQL5Dialect</value>  
+	    </property>  
+	    <property name="showSql">  
+	        <value>true</value>  
+	    </property>  
+	    <property name="generateDdl">  
+	        <value>true</value>  
+	    </property>  
+	</bean>    
+	
+	<bean id="sysadminEntityManagerFactory"  
+	    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
+	    <property name="persistenceXmlLocation" value="classpath*:persistence.xml" />  
+	    <property name="persistenceUnitName" value="fsmflying_sysadmin" />  
+	    <property name="dataSource" ref="sysadminDataSource" />  
+	    <property name="jpaVendorAdapter" ref="mysqlHibernateJpaVendorAdapter" />  
+	    <property name="jpaProperties">  
+	        <props>  
+	            <prop key="hibernate.format_sql">true</prop>  
+	            <prop key="hibernate.connection.driver_class">com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</prop>  
+	            <prop key="hibernate.current_session_context_class">jta</prop>  
+	            <prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup  
+	            </prop>  
+	        </props>  
+	    </property>  
+	</bean>
+	
+	<bean id="sequenceEntityManagerFactory"  
+	    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
+	    <property name="persistenceXmlLocation" value="classpath*:persistence.xml" />  
+	    <property name="persistenceUnitName" value="fsmflying_sequence" />  
+	    <property name="dataSource" ref="sequenceDataSource" />  
+	    <property name="jpaVendorAdapter" ref="mysqlHibernateJpaVendorAdapter" />  
+	    <property name="jpaProperties">  
+	        <props>  
+	            <prop key="hibernate.format_sql">true</prop>  
+	            <prop key="hibernate.connection.driver_class">com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</prop>  
+	            <prop key="hibernate.current_session_context_class">jta</prop>
+	            <prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>  
+	        </props>  
+	    </property>  
+	</bean>   
+	
+	<bean id="logEntityManagerFactory"  
+	    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
+	    <property name="persistenceXmlLocation" value="classpath*:persistence.xml" />  
+	    <property name="persistenceUnitName" value="fsmflying_log" />  
+	    <property name="dataSource" ref="logDataSource" />  
+	    <property name="jpaVendorAdapter" ref="mysqlHibernateJpaVendorAdapter" />  
+	    <property name="jpaProperties">  
+	        <props>  
+	            <prop key="hibernate.format_sql">true</prop>  
+	            <prop key="hibernate.connection.driver_class">com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</prop>  
+	            <prop key="hibernate.current_session_context_class">jta</prop>  
+	            <prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>  
+	        </props>  
+	    </property>  
+	</bean>  
+	
+
+	
+	
+	<!--  -->
+	<bean id="systemManageService" class="com.fsmflying.hibernate.jpa.impl.SystemManageServiceImpl">
+		<property name="entityManagerFactory" ref="sysadminEntityManagerFactory"></property>
+	</bean>
+	<bean id="sequenceService" class="com.fsmflying.hibernate.jpa.impl.SequenceServiceImpl">
+		<property name="entityManagerFactory" ref="sequenceEntityManagerFactory"></property>
+	</bean>
+	<bean id="configService" class="com.fsmflying.sys.service.impl.DefaultConfigServiceImpl" depends-on="systemManageService">
+		<property name="systemManageService" ref="systemManageService"/>
+	</bean>
+	<bean id="logService" class="com.fsmflying.hibernate.jpa.impl.LogServiceImpl">
+		<property name="entityManagerFactory" ref="logEntityManagerFactory"></property>
+		<property name="isWriteDatabase" value="true" />
+		<property name="appName" value="MavenCommonWeb05" />
+		<property name="defaultLogLevel" value="1" />
+	</bean>
+	
+	
+</beans>

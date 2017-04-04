@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+
+	
+	<context:component-scan base-package="com.fsmflying.sys.dm" />
+	<context:component-scan base-package="com.fsmflying.sys.service" />
+	<context:component-scan base-package="com.fsmflying.spring" />
+	<context:component-scan base-package="com.fsmflying.hibernate.jpa.impl" />
+	<context:component-scan base-package="com.fsmflying.mcommonweb05" />
+	
+	
+	<!-- 自动加载属性配置文件 -->
+	<context:property-placeholder location="classpath:jtajdbc.properties" />
+	
+	<import resource="classpath:springJtaDataSourceConfigOfAtomikos.xml"/>
+	<import resource="classpath:springJtaTxConfigOfAtomikos.xml"/>
+
+	
+	<!--实例化一个EntityManagerFactory-->
+    <!--该bean的作用是将spring中配置的tranactionManager,usertransaction注入到AtomikosJtaPlatfom中的一个静态域中,实现spring事务管理器与hibernate的事务管理器一致!!!!-->
+    <bean id="ajp" class="com.fsmflying.mcommonweb05.custom.AtomikosJtaPlatfom">
+        <property name="tm" ref="atomikosTransactionManager"/>
+        <property name="ut" ref="atomikosUserTransaction"/>
+    </bean>
+
+	<bean id="sysadminEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+	 depends-on="ajp">
+		<property name="jpaVendorAdapter">  
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            	<property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>  
+        </property>
+        <property name="persistenceXmlLocation" value="classpath:persistence_sysadmin.xml"/>
+        <!--  
+        <property name="packagesToScan" value="com.fsmflying.sys.dm"/> 
+        --> 
+        <property name="jtaDataSource" ref="sysadminDataSource"/>
+        
+        <property name="jpaProperties">
+            <props>  
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${sysadmin.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<!--  
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+				-->
+				<!-- hibernate 3 -->
+				<prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				
+				<!--由于spring没有为jpa提供jta管理注入,所以需要手工配置一个JtaPlatfom-->
+                <prop key="hibernate.transaction.jta.platform">com.fsmflying.mcommonweb05.custom.AtomikosJtaPlatfom</prop>
+				
+            </props>  
+        </property>  
+	</bean>
+	
+	<bean id="logEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">  
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            	<property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>   
+        </property>
+        <property name="persistenceXmlLocation" value="classpath:persistence_log.xml"/>
+        <!--   
+        <property name="packagesToScan" value="com.fsmflying.sys.dm"/>  
+        --> 
+        <property name="jtaDataSource" ref="logDataSource"/>
+        
+        <property name="jpaProperties">
+            <props>  
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${log.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				
+				<!--  
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+				-->
+				
+				<!-- hibernate 3 -->
+				<prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				
+				<!--由于spring没有为jpa提供jta管理注入,所以需要手工配置一个JtaPlatfom-->
+                <prop key="hibernate.transaction.jta.platform">com.fsmflying.mcommonweb05.custom.AtomikosJtaPlatfom</prop>
+				
+            </props>  
+        </property>  
+	</bean>
+	
+	<bean id="sequenceEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">  
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            	<property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+                <property name="database" value="MYSQL"/>
+            </bean>   
+        </property>  
+        <property name="persistenceXmlLocation" value="classpath:persistence_sequence.xml"/>
+        <!--
+        <property name="packagesToScan" value="com.fsmflying.sys.dm"/> 
+        -->
+        <property name="jtaDataSource" ref="sequenceDataSource"/>
+          
+        <property name="jpaProperties">
+            <props>  
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${sequence.hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				
+				<!--  
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop>
+				-->
+				
+				<!-- hibernate 3 -->
+				<prop key="cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- hibernate 4 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				
+                <!--由于spring没有为jpa提供jta管理注入,所以需要手工配置一个JtaPlatfom-->
+                <prop key="hibernate.transaction.jta.platform">com.fsmflying.mcommonweb05.custom.AtomikosJtaPlatfom</prop>
+				
+            </props>  
+        </property>  
+	</bean>
+	
+	
+	<bean id="systemManageService" class="com.fsmflying.hibernate.jpa.impl.SystemManageServiceImpl">
+		<property name="entityManagerFactory" ref="sysadminEntityManagerFactory"></property>
+	</bean>
+	<bean id="sequenceService" class="com.fsmflying.hibernate.jpa.impl.SequenceServiceImpl">
+		<property name="entityManagerFactory" ref="sequenceEntityManagerFactory"></property>
+	</bean>
+	<bean id="configService" class="com.fsmflying.sys.service.impl.DefaultConfigServiceImpl" depends-on="systemManageService">
+		<property name="systemManageService" ref="systemManageService"/>
+	</bean>
+	<bean id="logService" class="com.fsmflying.hibernate.jpa.impl.LogServiceImpl">
+		<property name="entityManagerFactory" ref="logEntityManagerFactory"></property>
+		<property name="isWriteDatabase" value="true" />
+		<property name="appName" value="MavenCommonWeb05" />
+		<property name="defaultLogLevel" value="1" />
+	</bean>
+	
+	
+</beans>
