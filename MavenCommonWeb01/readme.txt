@@ -31,3 +31,17 @@ maven web项目创建成功后，如果执行Maven update操作会发现项目的默认Web配置存在问题
   <installed facet="java" version="1.8"/>
   <installed facet="jst.web" version="3.1"/>
 </faceted-project>
+
+
+4. web.xml命名空间修改
+maven项目创建时，web.xml文件的使用了dtd 2.3,当修改了jsp的版本后，可以删除它们
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+		http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	
+	
+</web-app>
+
+

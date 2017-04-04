@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fsmflying.sys.service.SequenceService;
+import com.fsmflying.sys.service.ISequenceService;
 
 import fsmflying.demo.dm.Order;
 import fsmflying.demo.dm.OrderDetail;
@@ -25,17 +25,17 @@ public class SpringTransaction {
 	OrderService orderService;
 
 	@Resource
-	SequenceService sequenceService;
+	ISequenceService sequenceService;
 
 	@RequestMapping("/order/add")
 	public String OrderTransaction(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
@@ -55,11 +55,11 @@ public class SpringTransaction {
 	public String OrderTransaction01(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
@@ -79,11 +79,11 @@ public class SpringTransaction {
 	public String OrderTransaction02(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
@@ -103,11 +103,11 @@ public class SpringTransaction {
 	public String OrderTransaction044(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
@@ -127,11 +127,11 @@ public class SpringTransaction {
 	public String OrderTransaction05(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
@@ -151,11 +151,11 @@ public class SpringTransaction {
 	public String OrderTransaction06(Model model) {
 		Date orderDate = Calendar.getInstance().getTime();
 
-		int orderId = sequenceService.getNextId("northwind.order");
+		int orderId = sequenceService.generateNextId("northwind.order");
 		List<OrderDetail> details = new ArrayList<OrderDetail>();
 		for (int i = 0; i < 5; i++) {
 			details.add(new OrderDetail(sequenceService
-					.getNextId("northwind.orderdetail"), orderId, i + 1,
+					.generateNextId("northwind.orderdetail"), orderId, i + 1,
 					0.3 * (i + 1), 10 * (i + 1), (int) (Math.round(Math
 							.random() * 1000)) % 100));
 		}
