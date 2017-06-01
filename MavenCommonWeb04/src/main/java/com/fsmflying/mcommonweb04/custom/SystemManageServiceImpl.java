@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.fsmflying.sys.dm.SysArea;
+import com.fsmflying.helpers.SqlParameter;
+//import com.fsmflying.sys.dm.SysArea;
 import com.fsmflying.sys.dm.SysCompany;
 import com.fsmflying.sys.dm.SysConfig;
 import com.fsmflying.sys.dm.SysCustomPage;
@@ -19,19 +20,19 @@ import com.fsmflying.sys.dm.SysDictItem;
 import com.fsmflying.sys.dm.SysEmployee;
 import com.fsmflying.sys.dm.SysFile;
 import com.fsmflying.sys.dm.SysFuncPoint;
-import com.fsmflying.sys.dm.SysIOTemplate;
-import com.fsmflying.sys.dm.SysIOTemplateColumn;
-import com.fsmflying.sys.dm.SysIOTemplateField;
-import com.fsmflying.sys.dm.SysLog;
+//import com.fsmflying.sys.dm.SysIOTemplate;
+//import com.fsmflying.sys.dm.SysIOTemplateColumn;
+//import com.fsmflying.sys.dm.SysIOTemplateField;
+//import com.fsmflying.sys.dm.SysLog;
 import com.fsmflying.sys.dm.SysMenu;
 import com.fsmflying.sys.dm.SysRole;
-import com.fsmflying.sys.dm.SysSequence;
+//import com.fsmflying.sys.dm.SysSequence;
 import com.fsmflying.sys.dm.SysTab;
 import com.fsmflying.sys.dm.SysUser;
-import com.fsmflying.sys.dm.helper.UserRightSet;
+import com.fsmflying.sys.dm.helper.UserPermissions;
 import com.fsmflying.sys.service.ISystemManageService;
 import com.fsmflying.util.TwoTuple;
-
+@SuppressWarnings("unchecked")
 public class SystemManageServiceImpl implements ISystemManageService {
 
 	@Resource(name="sysadminSessionFactory")
@@ -69,6 +70,7 @@ public class SystemManageServiceImpl implements ISystemManageService {
 		session.getTransaction().commit();
 		return model;
 	}
+
 
 	@Override
 	public List<SysUser> getListOfSysUser() {
@@ -553,7 +555,7 @@ public class SystemManageServiceImpl implements ISystemManageService {
 	}
 
 	@Override
-	public UserRightSet getUserRightSet(int userId) {
+	public UserPermissions getUserPermissions(int userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -566,6 +568,30 @@ public class SystemManageServiceImpl implements ISystemManageService {
 
 	@Override
 	public List<TwoTuple<Integer, Integer>> getTabMenuTuples() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> List<T> getListOf(Class<T> cls, List<SqlParameter<?>> parameters) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> T getModelOf(Class<T> clazz, List<SqlParameter<?>> parameters) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <T> boolean deleteModelOf(Class<T> clazz, List<SqlParameter<?>> parameters) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<SysUser> getListOfSysUser(List<SqlParameter<?>> parameters) {
 		// TODO Auto-generated method stub
 		return null;
 	}

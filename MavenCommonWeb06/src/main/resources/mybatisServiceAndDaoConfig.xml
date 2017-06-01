@@ -40,7 +40,7 @@
 	</bean>
 	<bean id="logService" class="com.fsmflying.sys.service.impl.LogServiceImpl">
 		<property name="logDao" ref="logDao"/>
-		<property name="isWriteDatabase" value="false"/>
+		<property name="isWriteDatabase" value="true"/>
 		<property name="appName" value="MavenCommonWeb06-Mybatis"/>
 	</bean>
 	

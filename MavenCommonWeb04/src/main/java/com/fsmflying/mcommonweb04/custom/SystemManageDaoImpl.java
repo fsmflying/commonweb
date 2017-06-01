@@ -1,7 +1,7 @@
 package com.fsmflying.mcommonweb04.custom;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.fsmflying.sys.dao.SystemManageDao;
-import com.fsmflying.sys.dm.SysArea;
+//import com.fsmflying.sys.dm.SysArea;
 import com.fsmflying.sys.dm.SysCompany;
 import com.fsmflying.sys.dm.SysConfig;
 import com.fsmflying.sys.dm.SysCustomPage;
@@ -24,18 +24,19 @@ import com.fsmflying.sys.dm.SysDictItem;
 import com.fsmflying.sys.dm.SysEmployee;
 import com.fsmflying.sys.dm.SysFile;
 import com.fsmflying.sys.dm.SysFuncPoint;
-import com.fsmflying.sys.dm.SysIOTemplate;
-import com.fsmflying.sys.dm.SysIOTemplateColumn;
-import com.fsmflying.sys.dm.SysIOTemplateField;
-import com.fsmflying.sys.dm.SysLog;
+//import com.fsmflying.sys.dm.SysIOTemplate;
+//import com.fsmflying.sys.dm.SysIOTemplateColumn;
+//import com.fsmflying.sys.dm.SysIOTemplateField;
+//import com.fsmflying.sys.dm.SysLog;
 import com.fsmflying.sys.dm.SysMenu;
 import com.fsmflying.sys.dm.SysRole;
-import com.fsmflying.sys.dm.SysSequence;
+//import com.fsmflying.sys.dm.SysSequence;
 import com.fsmflying.sys.dm.SysTab;
 import com.fsmflying.sys.dm.SysUser;
-import com.fsmflying.sys.dm.helper.UserRightSet;
+import com.fsmflying.sys.dm.helper.UserPermissions;
 import com.fsmflying.util.TwoTuple;
 
+@SuppressWarnings("unchecked")
 public class SystemManageDaoImpl implements SystemManageDao {
 
 	@Resource(name = "sysadminSessionFactory")
@@ -622,7 +623,7 @@ public class SystemManageDaoImpl implements SystemManageDao {
 		session.getTransaction().commit();
 		return null;
 	}
-
+/*
 	@Override
 	public boolean add(SysSequence model) {
 		Session session = getCurrentSession();
@@ -660,7 +661,7 @@ public class SystemManageDaoImpl implements SystemManageDao {
 		session.getTransaction().commit();
 		return null;
 	}
-
+*/
 	@Override
 	public boolean add(SysFile model) {
 		Session session = getCurrentSession();
@@ -699,7 +700,7 @@ public class SystemManageDaoImpl implements SystemManageDao {
 		session.getTransaction().commit();
 		return null;
 	}
-
+/*
 	@Override
 	public boolean add(SysIOTemplate model) {
 		Session session = getCurrentSession();
@@ -816,7 +817,9 @@ public class SystemManageDaoImpl implements SystemManageDao {
 		session.getTransaction().commit();
 		return null;
 	}
-
+*/
+	
+/*
 	@Override
 	public boolean add(SysLog model) {
 		Session session = getCurrentSession();
@@ -894,7 +897,7 @@ public class SystemManageDaoImpl implements SystemManageDao {
 		session.getTransaction().commit();
 		return null;
 	}
-
+*/
 	@Override
 	public List<SysRole> getUserRoles(int userId) {
 		Session session = getCurrentSession();
@@ -938,7 +941,7 @@ public class SystemManageDaoImpl implements SystemManageDao {
 	}
 
 	@Override
-	public UserRightSet getUserRightSet(int userId) {
+	public UserPermissions getUserPermissions(int userId) {
 		Session session = getCurrentSession();
 		session.getTransaction().commit();
 		return null;

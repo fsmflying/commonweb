@@ -3,9 +3,6 @@
 	<name>MavenCommonWeb06</name>
 	<comment></comment>
 	<projects>
-		<project>Fsmflying</project>
-		<project>fsmflyingOfMyBatis</project>
-		<project>FsmflyingOfSpring</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

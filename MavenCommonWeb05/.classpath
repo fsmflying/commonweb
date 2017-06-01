@@ -28,8 +28,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Fsmflying"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/FsmflyingOfSpring"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fsmflyingOfHibernate"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying-hibernate"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying-spring"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -28,8 +28,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Fsmflying"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fsmflyingOfMyBatis"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/FsmflyingOfSpring"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying-mybatis"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fsmflying-spring"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
