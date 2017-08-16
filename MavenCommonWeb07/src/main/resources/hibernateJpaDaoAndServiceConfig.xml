@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd       
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        ">
+
+	<import resource="classpath:AtomikosXADataSourceConfig.xml" />
+	<import resource="classpath:springAtomikosTxConfig.xml" />
+
+	
+	<context:property-placeholder location="classpath:jtajdbc1.properties" />
+
+	<bean id="mysqlHibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform">
+			<value>${hibernate.dialect}</value>
+		</property>
+		<property name="showSql">
+			<value>true</value>
+		</property>
+		<property name="generateDdl">
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean id="sysadminEntityManagerFactoryBean"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" destroy-method="destroy">
+		<!--  -->
+		<property name="persistenceXmlLocation" value="classpath*:persistence.xml" />
+		<property name="persistenceUnitName" value="common_sysadmin" />
+		<property name="jtaDataSource" ref="sysadminDataSource" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!--  
+				<prop key="hibernate.connection.driver_class">${sysadmin.xadriverClassName}</prop>
+				-->
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="logEntityManagerFactoryBean"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:persistence.xml" />
+		<property name="persistenceUnitName" value="common_log" />
+		<property name="jtaDataSource" ref="logDataSource" />
+		<property name="jpaVendorAdapter" ref="mysqlHibernateJpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="sequenceEntityManagerFactoryBean"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath*:persistence.xml" />
+		<property name="persistenceUnitName" value="common_sequence" />
+		<property name="jtaDataSource" ref="sequenceDataSource" />
+		<property name="jpaVendorAdapter" ref="mysqlHibernateJpaVendorAdapter" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- service -->
+	<bean id="systemManageService" class="com.fsmflying.jpa.service.impl.SystemManageServiceImpl"
+		destroy-method="close">
+	</bean>
+	<bean id="configService" class="com.fsmflying.sys.service.impl.DefaultConfigServiceImpl">
+		<property name="systemManageService" ref="systemManageService" />
+	</bean>
+	  
+	<bean id="sequenceService" class="com.fsmflying.jpa.service.impl.SequenceServiceImpl">
+	</bean>
+	<bean id="logService" class="com.fsmflying.jpa.service.impl.LogServiceImpl">
+		<property name="isWriteDatabase" value="true" />
+	</bean>
+
+</beans>

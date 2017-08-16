@@ -7,7 +7,25 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Maven CommonWeb03</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<fsmflying.version>1.0.0</fsmflying.version>
+	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.fsmflying</groupId>
+			<artifactId>fsmflying</artifactId>
+			<version>${fsmflying.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fsmflying</groupId>
+			<artifactId>fsmflying-spring</artifactId>
+			<version>${fsmflying.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fsmflying</groupId>
+			<artifactId>fsmflying-hibernate</artifactId>
+			<version>${fsmflying.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

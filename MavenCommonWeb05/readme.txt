@@ -1,14 +1,10 @@
-ÑİÊ¾·Ö²¼Ê½ÊÂÎñ(JTA)
-Ê¹ÓÃ£ºspringmvc4 + springframework4 + hibernate 4.3.11 + atomikos 3.9.3
+åˆ†å¸ƒå¼äº‹åŠ¡(JTA)
+æ¼”ç¤ºspringmvc4 + springframework4 + hibernate 4.3.11 + atomikos 3.9.3
 
-Ê¹ÓÃµÄÊı¾İ¿âÓĞcommon_sysadmin,common_sequence,common_log
+ä½¿ç”¨äº†æ•°æ®æºcommon_sysadmin,common_sequence,common_log
 
-·şÎñbeanÓĞ4¸ö
-
-²éÑ¯Êı¾İÓÃµÄSQLÓï¾äÈçÏÂ£º
-
+å¸¸ç”¨çš„SQLè¯­å¥
 select * from common_sequence.sys_sequences;
-
 select * from common_sequence.sys_sequenceHistories where keyName='default' 
 order by generatedTime desc
 limit 0,10;

@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!--  
 	<properties resource="jdbc.properties" />
-
+-->
 	<typeAliases>
 		<typeAlias type="com.fsmflying.sys.dm.SysRole" alias="SysRole" />
 		<typeAlias type="com.fsmflying.sys.dm.SysUser" alias="SysUser" />
@@ -31,10 +32,12 @@
 		<typeAlias type="com.fsmflying.util.ThreeIntegerTuple" alias="ThreeIntegerTuple" />
 		
 	</typeAliases>
+	  
 	<environments default="common_sysadmin">
 		<environment id="common_sysadmin">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
+				  
 				<property name="driver" value="${sysadmin.driverClassName}" />
 				<property name="url" value="${sysadmin.url}" />
 				<property name="username" value="${sysadmin.username}" />
@@ -60,6 +63,7 @@
 			</dataSource>
 		</environment>
 	</environments>
+	<!---->
 	<databaseIdProvider type="DB_VENDOR">
 	  <property name="SQL Server" value="sqlserver"/>
 	  <property name="DB2" value="db2"/>        
@@ -68,7 +72,6 @@
 	<mappers>
 		<!--  
 		<mapper resource="com/fsmflying/mybatis/mapper/xml/SysTestMapper.xml" />
-		
   		
 		<mapper resource="com/fsmflying/mybatis/mapper/xml/SysSequenceMapper.xml" />
 		<mapper resource="com/fsmflying/mybatis/mapper/xml/SysCompanyMapper.xml" />
