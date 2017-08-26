@@ -47,6 +47,7 @@
 		<property name="sqlSessionFactoryBeanName" value="sysadminSessionFactory" />
 		<!-- Mapper接口所在包名，Spring会自动查找其下的Mapper -->
 		<property name="basePackage" value="com.fsmflying.mybatis.mapper" />
+		
 	</bean>
 	
 	<!-- scan for mappers and let them be autowired -->

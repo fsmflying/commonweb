@@ -32,12 +32,11 @@
 		<typeAlias type="com.fsmflying.util.ThreeIntegerTuple" alias="ThreeIntegerTuple" />
 		
 	</typeAliases>
-	  
+	<!--   
 	<environments default="common_sysadmin">
 		<environment id="common_sysadmin">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				  
 				<property name="driver" value="${sysadmin.driverClassName}" />
 				<property name="url" value="${sysadmin.url}" />
 				<property name="username" value="${sysadmin.username}" />
@@ -63,11 +62,13 @@
 			</dataSource>
 		</environment>
 	</environments>
+	--> 
 	<!---->
 	<databaseIdProvider type="DB_VENDOR">
 	  <property name="SQL Server" value="sqlserver"/>
 	  <property name="DB2" value="db2"/>        
-	  <property name="Oracle" value="oracle" />
+	  <property name="Oracle" value="oracle" />       
+	  <property name="MySql" value="mysql" />
 	</databaseIdProvider>
 	<mappers>
 		<!--  
